@@ -2,6 +2,7 @@ package kurtandkierra.simon;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.style.BackgroundColorSpan;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -14,7 +15,7 @@ import java.util.Timer;
  */
 
 public class PlayActivity extends Activity {
-    final int buttonColor[] = new int[4];
+    final Button buttonColor[] = new Button[4];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,41 +23,21 @@ public class PlayActivity extends Activity {
 
        //final int buttonColor[] = new int[4];
 
+        //button id
+        buttonColor[0] = findViewById(R.id.green_button);
+        buttonColor[1] = findViewById(R.id.red_button);
+        buttonColor[2] = findViewById(R.id.yellow_button);
+        buttonColor[3] = findViewById(R.id.blue_button);
 
-        //green button
-        findViewById(R.id.green_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        for (int i = 0; i < 4; i++){
+            buttonColor[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                //#07ed44 - lighter color
+                }
+            });
+        }
 
-            }
-        });
-
-        // red button
-        findViewById(R.id.red_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //#f21607- lighter color
-            }
-        });
-
-        //yellow button
-        findViewById(R.id.yellow_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //#ffff05- lighter color
-
-            }
-        });
-
-        //blue button
-        findViewById(R.id.blue_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // #1d04f7 - lighter color
-            }
-        });
 
         //call for sequence
         sequence();
@@ -68,7 +49,7 @@ public class PlayActivity extends Activity {
             int num = 0;
             for (int i = 0; i < 20; i++) {
                 Random random = new Random();
-                num = random.nextInt(4) + 1; //4 is max 1 is min
+                num += random.nextInt(4) + 1; //4 is max 1 is min
 
                 //buttonColor[x] = num;
 
@@ -95,7 +76,7 @@ public class PlayActivity extends Activity {
                   //  b3.setBackgroundColor(0xffff05);
                     break;
                 case 4:
-                    b4 = findViewById(R.id.yellow_button);
+                    b4 = findViewById(R.id.blue_button);
                    // b4.setBackgroundColor(0x1d04f7);
                     break;
                 default:
