@@ -85,42 +85,42 @@ public class PlayActivity extends Activity {
         findViewById(R.id.green_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (soundsLoaded.contains(gameBeepId)){
-                    soundPool.play(gameBeepId, 1.0f, 1.0f, 0,0,1.0f);
-                }
-               
+                playSound(gameBeepId);
+
             }
         });
         //red_button
         findViewById(R.id.red_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (soundsLoaded.contains(gameBeepId)){
-                    soundPool.play(gameBeepId, 1.0f, 1.0f, 0,0,1.0f);
-                }
+                playSound(gameBeepId);
             }
         });
         //yellow_button
         findViewById(R.id.yellow_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (soundsLoaded.contains(gameBeepId)){
-                    soundPool.play(gameBeepId, 1.0f, 1.0f, 0,0,1.0f);
-                }
+                playSound(gameBeepId);
             }
         });
         //blue_button
         findViewById(R.id.blue_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (soundsLoaded.contains(gameBeepId)){
-                    soundPool.play(gameBeepId, 1.0f, 1.0f, 0,0,1.0f);
-                }
+               playSound(gameBeepId);
             }
         });
     }
 
+    //play sound**********************************************************************
+    private void playSound(int soundID){
+        if (soundsLoaded.contains(soundID)){
+            soundPool.play(soundID, 1.0f, 1.0f, 0,0,1.0f);
+        }
+    }
+
     //sequence for buttons*******************************************************************************************
+
         public void sequence(){
            // int x = 0;\
             int num = 0;
