@@ -1,11 +1,14 @@
 package kurtandkierra.simon;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.style.BackgroundColorSpan;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -20,6 +23,9 @@ import java.util.Timer;
  */
 
 public class PlayActivity extends Activity {
+
+    private Handler handler;
+
     final Button buttonColor[] = new Button[4];
     //soundpool
     private SoundPool soundPool;
@@ -50,15 +56,22 @@ public class PlayActivity extends Activity {
             });
         }
 
+        //start button
+        findViewById(R.id.start_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //call for sequence
 
-        //call for sequence
-        sequence();
+                sequence();
+            }
+        });
 
     }
     //onResume
     @Override
     protected void onResume() {
         super.onResume();
+        Button b;
 
         AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
         attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
@@ -86,6 +99,9 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
+               //view.setBackgroundColor(Color.rgb(7, 237, 68));
+                // view.setBackgroundColor(0x07ed44);
+                //view.setBackgroundColor(Color.rgb(3, 150, 42));
 
             }
         });
@@ -94,6 +110,7 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
+
             }
         });
         //yellow_button
@@ -111,6 +128,19 @@ public class PlayActivity extends Activity {
             }
         });
     }
+    //onPause
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (soundPool != null){
+            soundPool.release();
+            soundPool = null;
+
+            soundsLoaded.clear();
+        }
+    }
 
     //play sound**********************************************************************
     private void playSound(int soundID){
@@ -119,41 +149,50 @@ public class PlayActivity extends Activity {
         }
     }
 
+    /*******Handler***********************************************************************/
+
     //sequence for buttons*******************************************************************************************
 
-        public void sequence(){
-           // int x = 0;\
-            int num = 0;
-            for (int i = 0; i < 20; i++) {
-                Random random = new Random();
-                num += random.nextInt(4) + 1; //4 is max 1 is min
+        public void sequence() {
+                  int num = 0;
+            Random random = new Random();
+           for (int i = 0; i < 20; i++) {
+               num = random.nextInt(4) + 1;
 
-                //buttonColor[x] = num;
-
-                //call for button pressed
-                buttonPressed(num);
-            }
-
+               buttonPressed(num);
+               onResume();
+           }
     }
-    public void buttonPressed(int number){
+    public void buttonPressed(int number)  {
             Button b1, b2, b3, b4;
 
             switch(number){
                 case 1:
                     b1 = findViewById(R.id.green_button);
+                   b1.setPressed(true);
+                    Log.i("color:", "GREEN");
+                   // Thread.sleep(1000);
+                 //   b1.setBackgroundColor(0x03962a);
+
                    // b1.onKeyDown(07ed44);
                   //  b1.setBackgroundColor(0x07ed44);
                     break;
                 case 2:
                     b2 = findViewById(R.id.red_button);
+                    b2.setPressed(true);
+                        Log.i("color:", "RED");
                  //  b2.setBackgroundColor(0xf21607);
                     break;
                 case 3:
                     b3 = findViewById(R.id.yellow_button);
+                    b3.setPressed(true);
+                    Log.i("color:", "YELLOW");
                   //  b3.setBackgroundColor(0xffff05);
                     break;
                 case 4:
                     b4 = findViewById(R.id.blue_button);
+                    b4.setPressed(true);
+                    Log.i("color:", "BLUE");
                    // b4.setBackgroundColor(0x1d04f7);
                     break;
                 default:
