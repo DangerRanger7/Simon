@@ -63,9 +63,10 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 //call for sequence
+                startCounter();
 
                 sequence();
-                startCounter();
+
             }
         });
 
@@ -84,6 +85,7 @@ public class PlayActivity extends Activity {
     private TextView highScore_tv;
     private TextView score_tv;
     private UpdateTask updateTask;
+    int highScore;
 
     //start counter for score
     private void startCounter(){
@@ -102,18 +104,21 @@ public class PlayActivity extends Activity {
     }
 
     /**UpdateTask*************************************************FOR SCORE**********/
+    int finalScore;
    class UpdateTask extends AsyncTask<Void, Void, Void>{
 
         @Override
         protected Void doInBackground(Void... voids) {
 
+            int score = 0;
+            // int finalScore = score;
             try{
-                int score = 0;
+               // int score = 0;
                 while(!Thread.interrupted()){
                     final String scoreString = "The score is " + score;
                     Log.i("Update: ", scoreString);
                         score++;
-                    final int finalScore = score;
+                     finalScore = score;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -125,7 +130,12 @@ public class PlayActivity extends Activity {
 
             }catch (InterruptedException e) {
                 Log.i("THREAD", "Sleep was interrupted for counter. ");
+                if (finalScore > highScore){
+                    highScore = finalScore;
+                    highScore_tv.setText("" + highScore);
+                }
             }
+
 
             return null;
         }
