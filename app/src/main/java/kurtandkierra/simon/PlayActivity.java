@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.style.UpdateAppearance;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,7 +38,7 @@ public class PlayActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
-       //final int buttonColor[] = new int[4];
+        //final int buttonColor[] = new int[4];
 
         //for soundsLoaded
         soundsLoaded = new HashSet<Integer>();
@@ -47,7 +49,7 @@ public class PlayActivity extends Activity {
         buttonColor[2] = findViewById(R.id.yellow_button);
         buttonColor[3] = findViewById(R.id.blue_button);
 
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < 4; i++) {
             buttonColor[i].setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -63,18 +65,72 @@ public class PlayActivity extends Activity {
                 //call for sequence
 
                 sequence();
+                startCounter();
             }
         });
-        //High score and score textview
-        TextView highScore_tv = findViewById(R.id.highScore_textview);
-        final int HIGHSCORE = 0;
-        highScore_tv.setText("" + HIGHSCORE);
-        TextView score_tv =  findViewById(R.id.score_textView);
-        final int SCORE = 0;
-        score_tv.setText("" + SCORE);
 
 
+    //High score and score textview
+   /* TextView highScore_tv = findViewById(R.id.highScore_textview);
+    final int HIGHSCORE = 0;
+        highScore_tv.setText(""+HIGHSCORE);
+    TextView score_tv = findViewById(R.id.score_textView);
+    final int SCORE = 0;
+        score_tv.setText(""+SCORE);*/
+
+
+}
+//score
+    private TextView highScore_tv;
+    private TextView score_tv;
+    private UpdateTask updateTask;
+
+    //start counter for score
+    private void startCounter(){
+        highScore_tv = findViewById(R.id.highScore_textview);
+       score_tv =  findViewById(R.id.score_textView);
+
+        if (updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
+            updateTask = null;
+        }
+        if (updateTask == null){
+            updateTask = new UpdateTask();
+            updateTask.execute();
+        }else{
+            Log.i("START", "task is already running");
+        }
     }
+
+    /**UpdateTask*************************************************FOR SCORE**********/
+   class UpdateTask extends AsyncTask<Void, Void, Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+            try{
+                int score = 0;
+                while(!Thread.interrupted()){
+                    final String scoreString = "The score is " + score;
+                    Log.i("Update: ", scoreString);
+                        score++;
+                    final int finalScore = score;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            score_tv.setText("" + finalScore);
+                        }
+                    });
+                    Thread.sleep(1000);
+                }
+
+            }catch (InterruptedException e) {
+                Log.i("THREAD", "Sleep was interrupted for counter. ");
+            }
+
+            return null;
+        }
+    }
+
     //onResume
     @Override
     protected void onResume() {
