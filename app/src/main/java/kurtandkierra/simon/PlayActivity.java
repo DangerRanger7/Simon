@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.style.UpdateAppearance;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -331,9 +332,19 @@ public class PlayActivity extends Activity {
                 default:
                     break;
             }
-
     }
+    //on key down
+   /* @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+       // return super.onKeyDown(keyCode, event);
 
-
+        if (keyCode == KeyEvent.ACTION_DOWN){
+           buttonColor[0].setBackgroundColor(0x07ed44);
+           buttonColor[1].setBackgroundColor(0xf21607);
+           buttonColor[2].setBackgroundColor(0xffff05);
+           buttonColor[3].setBackgroundColor(0x1d04f7);
+        }
+        return true;
+    }*/
 
 }
