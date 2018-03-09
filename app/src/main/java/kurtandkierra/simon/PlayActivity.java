@@ -66,9 +66,12 @@ public class PlayActivity extends Activity {
             }
         });
         //High score and score textview
-        final TextView highScore = findViewById(R.id.highScore_textview);
-        highScore.setText("0");
-       final  TextView score =  findViewById(R.id.score_textView);
+        TextView highScore_tv = findViewById(R.id.highScore_textview);
+        final int HIGHSCORE = 0;
+        highScore_tv.setText("" + HIGHSCORE);
+        TextView score_tv =  findViewById(R.id.score_textView);
+        final int SCORE = 0;
+        score_tv.setText("" + SCORE);
 
 
     }
@@ -233,9 +236,7 @@ public class PlayActivity extends Activity {
                 case 1:
                     b1 = findViewById(R.id.green_button);
                    b1.setPressed(true);
-                   onResume();
-                    Log.i("color:", "GREEN");
-
+                  Log.i("color:", "GREEN");
                    // b1.setBackgroundColor(Color.rgb(3, 150, 42));
                    // Thread.sleep(1000);
                  //   b1.setBackgroundColor(0x03962a);
