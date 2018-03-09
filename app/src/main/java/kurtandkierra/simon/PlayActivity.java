@@ -6,18 +6,17 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.style.BackgroundColorSpan;
 import android.util.Log;
-import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.TextView;
 
-import java.lang.reflect.Array;
+import org.w3c.dom.Text;
+
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
-import java.util.Timer;
 
 /**
  * Created by Kierra on 2/25/2018.
@@ -66,6 +65,11 @@ public class PlayActivity extends Activity {
                 sequence();
             }
         });
+        //High score and score textview
+        final TextView highScore = findViewById(R.id.highScore_textview);
+        highScore.setText("0");
+       final  TextView score =  findViewById(R.id.score_textView);
+
 
     }
     //onResume
@@ -101,6 +105,10 @@ public class PlayActivity extends Activity {
             public void onClick(View view) {
                 view.setPressed(true);
                 playSound(gameBeepId);
+                 //int ev = MotionEvent.ACTION_DOWN;
+                //int action = ev.getActionMasked();
+              //event(R.id.green_button, ev);
+
               // view.setBackgroundColor(Color.rgb(7, 237, 68));
                 // view.setBackgroundColor(0x07ed44);
                 //view.setBackgroundColor(Color.rgb(3, 150, 42));
@@ -134,8 +142,6 @@ public class PlayActivity extends Activity {
         });
     }
     //onPause
-
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -153,6 +159,29 @@ public class PlayActivity extends Activity {
             soundPool.play(soundID, 1.0f, 1.0f, 0,0,1.0f);
         }
     }
+
+    //event
+    /*  MotionEvent event = MotionEvent.ACTION_DOWN);
+                if(event.getAction() == MotionEvent.ACTION_DOWN){
+                    view.setBackgroundColor(Color.rgb(7, 237, 68));
+                }*/
+   /* private void event(int id, int event) {
+        Button b;
+        switch(id) {
+            case R.id.green_button:
+               if(event == MotionEvent.ACTION_DOWN){
+                   b = findViewById(id);
+                   b.setBackgroundColor(Color.rgb(7, 237, 68));
+               }
+               break;
+
+            default: break;
+            /* if (event.getAction() == ACTION_DOWN) {
+                view.setBackgroundColor(Color.rgb(7, 237, 68));
+            }
+            return true;
+        }
+    }*/
 
     /*******Handler***********************************************************************/
 
@@ -204,7 +233,9 @@ public class PlayActivity extends Activity {
                 case 1:
                     b1 = findViewById(R.id.green_button);
                    b1.setPressed(true);
+                   onResume();
                     Log.i("color:", "GREEN");
+
                    // b1.setBackgroundColor(Color.rgb(3, 150, 42));
                    // Thread.sleep(1000);
                  //   b1.setBackgroundColor(0x03962a);
