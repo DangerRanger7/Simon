@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.lang.reflect.Array;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -98,8 +99,9 @@ public class PlayActivity extends Activity {
         findViewById(R.id.green_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setPressed(true);
                 playSound(gameBeepId);
-               //view.setBackgroundColor(Color.rgb(7, 237, 68));
+              // view.setBackgroundColor(Color.rgb(7, 237, 68));
                 // view.setBackgroundColor(0x07ed44);
                 //view.setBackgroundColor(Color.rgb(3, 150, 42));
 
@@ -109,6 +111,7 @@ public class PlayActivity extends Activity {
         findViewById(R.id.red_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setPressed(true);
                 playSound(gameBeepId);
 
             }
@@ -117,6 +120,7 @@ public class PlayActivity extends Activity {
         findViewById(R.id.yellow_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setPressed(true);
                 playSound(gameBeepId);
             }
         });
@@ -124,6 +128,7 @@ public class PlayActivity extends Activity {
         findViewById(R.id.blue_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setPressed(true);
                playSound(gameBeepId);
             }
         });
@@ -154,13 +159,42 @@ public class PlayActivity extends Activity {
     //sequence for buttons*******************************************************************************************
 
         public void sequence() {
-                  int num = 0;
+                  int[] array = new int[8];
+                 // int random;
+                  int num;
             Random random = new Random();
-           for (int i = 0; i < 20; i++) {
+           for (int i = 0; i < 8; i++) {
                num = random.nextInt(4) + 1;
+                array[i] = num;
 
                buttonPressed(num);
                onResume();
+               try {
+                   Thread.sleep(1000);
+               } catch (InterruptedException e) {
+                   e.printStackTrace();
+               }
+
+               /*if (i > 0) {
+                   for (int j = 0; j < 8; j++) {
+
+                       array[j] = num;
+                       onResume();
+                       buttonPressed(num);
+                   }
+               }*/
+                /*   num = array[0];
+                   onResume();
+                   buttonPressed(num);
+                   for(int j = 0; j < array[j]; j++){
+                       num = random.nextInt(4) + 1;
+                       array[i] = num;
+
+                       onResume();
+                       buttonPressed(num);
+                   }
+               }*/
+
            }
     }
     public void buttonPressed(int number)  {
@@ -171,6 +205,7 @@ public class PlayActivity extends Activity {
                     b1 = findViewById(R.id.green_button);
                    b1.setPressed(true);
                     Log.i("color:", "GREEN");
+                   // b1.setBackgroundColor(Color.rgb(3, 150, 42));
                    // Thread.sleep(1000);
                  //   b1.setBackgroundColor(0x03962a);
 
