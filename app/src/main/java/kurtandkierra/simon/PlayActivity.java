@@ -1,21 +1,15 @@
 package kurtandkierra.simon;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.style.UpdateAppearance;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -30,6 +24,7 @@ public class PlayActivity extends Activity {
     private Handler handler;
 
     final Button buttonColor[] = new Button[4];
+    Button buttonColor2[] = new Button[4];
     //soundpool
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
@@ -65,7 +60,6 @@ public class PlayActivity extends Activity {
             public void onClick(View view) {
                 //call for sequence
                 startCounter();
-
                 sequence();
 
             }
@@ -107,28 +101,25 @@ public class PlayActivity extends Activity {
     /**UpdateTask*************************************************FOR SCORE**********/
     int finalScore;
    class UpdateTask extends AsyncTask<Void, Void, Void>{
-
+/************NEED TO FIX******************************************************************/
         @Override
         protected Void doInBackground(Void... voids) {
 
-            int score = 0;
-            // int finalScore = score;
             try{
-               // int score = 0;
+              //  int score = 0;
                 while(!Thread.interrupted()){
-                    final String scoreString = "The score is " + score;
-                    Log.i("Update: ", scoreString);
-                        score++;
-                     finalScore = score;
+                   // final String scoreString = "The score is " + score;
+                    //Log.i("Update: ", scoreString);
+                    //    score++;
+                   //  finalScore = score;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            score_tv.setText("" + finalScore);
+                          //  score_tv.setText("" + finalScore);
                         }
                     });
                     Thread.sleep(1000);
                 }
-
             }catch (InterruptedException e) {
                 Log.i("THREAD", "Sleep was interrupted for counter. ");
                 if (finalScore > highScore){
@@ -136,8 +127,6 @@ public class PlayActivity extends Activity {
                     highScore_tv.setText("" + highScore);
                 }
             }
-
-
             return null;
         }
     }
@@ -173,7 +162,7 @@ public class PlayActivity extends Activity {
         findViewById(R.id.green_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.setPressed(true);
+               // view.setPressed(true);
                 playSound(gameBeepId);
                  //int ev = MotionEvent.ACTION_DOWN;
                 //int action = ev.getActionMasked();
@@ -189,7 +178,7 @@ public class PlayActivity extends Activity {
         findViewById(R.id.red_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.setPressed(true);
+                //view.setPressed(true);
                 playSound(gameBeepId);
 
             }
@@ -198,7 +187,7 @@ public class PlayActivity extends Activity {
         findViewById(R.id.yellow_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.setPressed(true);
+              //  view.setPressed(true);
                 playSound(gameBeepId);
             }
         });
@@ -206,7 +195,7 @@ public class PlayActivity extends Activity {
         findViewById(R.id.blue_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                view.setPressed(true);
+               // view.setPressed(true);
                playSound(gameBeepId);
             }
         });
@@ -218,7 +207,6 @@ public class PlayActivity extends Activity {
         if (soundPool != null){
             soundPool.release();
             soundPool = null;
-
             soundsLoaded.clear();
         }
     }
@@ -304,6 +292,7 @@ public class PlayActivity extends Activity {
                     b1 = findViewById(R.id.green_button);
                    b1.setPressed(true);
                   Log.i("color:", "GREEN");
+
                    // b1.setBackgroundColor(Color.rgb(3, 150, 42));
                    // Thread.sleep(1000);
                  //   b1.setBackgroundColor(0x03962a);
@@ -333,6 +322,19 @@ public class PlayActivity extends Activity {
                     break;
             }
     }
+    public boolean compare(Button[] bc1, Button[] bc2){
+            boolean flag = false;
+            for(int i = 0; i < bc1.length; i++){
+                if (bc1[i] == bc2[i]){
+                    flag = true;
+                }else{
+                    flag = false;
+                }
+            }
+
+        return flag;
+    }
+
     //on key down
    /* @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
