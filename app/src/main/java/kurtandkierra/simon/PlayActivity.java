@@ -34,6 +34,23 @@ public class PlayActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
 
+        //rotation
+       String hs_label;
+        String score_label;
+
+        if (savedInstanceState == null){
+            hs_label = "0";
+            score_label = "0";
+        }else{
+            hs_label = (String) savedInstanceState.get("highScore");
+            score_label = (String) savedInstanceState.get("score");
+        }
+        final TextView highScore_tv = findViewById(R.id.highScore_textview);
+        final TextView score_tv = findViewById(R.id.score_textView);
+
+        highScore_tv.setText(hs_label);
+        score_tv.setText(score_label);
+
         //final int buttonColor[] = new int[4];
 
         //for soundsLoaded
@@ -106,26 +123,26 @@ public class PlayActivity extends Activity {
         protected Void doInBackground(Void... voids) {
 
             try{
-              //  int score = 0;
+               int score = 0;
                 while(!Thread.interrupted()){
-                   // final String scoreString = "The score is " + score;
-                    //Log.i("Update: ", scoreString);
-                    //    score++;
-                   //  finalScore = score;
+                   final String scoreString = "The score is " + score;
+                   Log.i("Update: ", scoreString);
+                       score++;
+                     finalScore = score;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                          //  score_tv.setText("" + finalScore);
+                            score_tv.setText("" + finalScore);
                         }
                     });
                     Thread.sleep(1000);
                 }
             }catch (InterruptedException e) {
                 Log.i("THREAD", "Sleep was interrupted for counter. ");
-                if (finalScore > highScore){
+                /*if (finalScore > highScore){
                     highScore = finalScore;
                     highScore_tv.setText("" + highScore);
-                }
+                }*/
             }
             return null;
         }
@@ -334,6 +351,20 @@ public class PlayActivity extends Activity {
 
         return flag;
     }
+    //rotation
+
+    @Override
+   protected void onSaveInstanceState(Bundle outState){
+        super.onSaveInstanceState(outState);
+
+        TextView highScore = findViewById(R.id.highScore_textview);
+        outState.putString("highScore", highScore.getText().toString());
+
+        TextView score = findViewById(R.id.score_textView);
+        outState.putString("score", score.getText().toString());
+
+    }
+
 
     //on key down
    /* @Override
