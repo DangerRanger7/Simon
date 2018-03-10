@@ -21,7 +21,7 @@ import java.util.Set;
 
 public class PlayActivity extends Activity {
 
-    private Handler handler;
+   // private Handler handler;
 
     final Button buttonColor[] = new Button[4];
     Button buttonColor2[] = new Button[4];
@@ -139,10 +139,6 @@ public class PlayActivity extends Activity {
                 }
             }catch (InterruptedException e) {
                 Log.i("THREAD", "Sleep was interrupted for counter. ");
-                /*if (finalScore > highScore){
-                    highScore = finalScore;
-                    highScore_tv.setText("" + highScore);
-                }*/
             }
             return null;
         }
@@ -301,6 +297,7 @@ public class PlayActivity extends Activity {
 
            }
     }
+    Handler handler = new Handler();
     public void buttonPressed(int number)  {
             Button b1, b2, b3, b4;
 
@@ -345,6 +342,12 @@ public class PlayActivity extends Activity {
                 if (bc1[i] == bc2[i]){
                     flag = true;
                 }else{
+                    String finalScoreStr = score_tv.getText().toString();
+                    int finalScore = Integer.parseInt(finalScoreStr);
+                    if (finalScore > highScore){
+                        highScore = finalScore;
+                        highScore_tv.setText("" + finalScore);
+                    }
                     flag = false;
                 }
             }
