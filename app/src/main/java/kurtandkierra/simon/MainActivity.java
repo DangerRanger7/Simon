@@ -1,6 +1,7 @@
 package kurtandkierra.simon;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ public class MainActivity extends Activity {
         findViewById(R.id.play_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               // AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
                 Intent intent = new Intent(getApplicationContext(),
                         PlayActivity.class);
                 startActivity(intent);

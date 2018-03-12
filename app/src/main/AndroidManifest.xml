@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".AboutActivity">
+                android:label="Simon: About"
+        </activity>
+        <activity android:name=".PlayActivity">
+            android:label="Simon: Play"
+        </activity>
     </application>
 
 </manifest>
