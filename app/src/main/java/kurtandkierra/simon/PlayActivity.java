@@ -304,7 +304,7 @@ public class PlayActivity extends Activity {
             switch(number){
                 case 1:
                     b1 = findViewById(R.id.green_button);
-                   b1.setPressed(true);
+                    b1.performClick();
                   Log.i("color:", "GREEN");
 
                    // b1.setBackgroundColor(Color.rgb(3, 150, 42));
@@ -316,19 +316,19 @@ public class PlayActivity extends Activity {
                     break;
                 case 2:
                     b2 = findViewById(R.id.red_button);
-                    b2.setPressed(true);
+                    b2.performClick();
                         Log.i("color:", "RED");
                  //  b2.setBackgroundColor(0xf21607);
                     break;
                 case 3:
                     b3 = findViewById(R.id.yellow_button);
-                    b3.setPressed(true);
+                    b3.performClick();
                     Log.i("color:", "YELLOW");
                   //  b3.setBackgroundColor(0xffff05);
                     break;
                 case 4:
                     b4 = findViewById(R.id.blue_button);
-                    b4.setPressed(true);
+                    b4.performClick();
                     Log.i("color:", "BLUE");
                    // b4.setBackgroundColor(0x1d04f7);
                     break;
