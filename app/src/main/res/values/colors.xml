@@ -5,15 +5,15 @@
     <color name="colorAccent">#FF4081</color>
 
     <!-- color buttons -->
-    <color name="red_focused">#bc1400</color>
+    <color name="red_default">#bc1400</color>
     <color name="red_pressed">#f87161</color>
 
-    <color name="green_focused">#00962b</color>
+    <color name="green_default">#00962b</color>
     <color name="green_pressed">#68e18b</color>
 
-    <color name="blue_focused">#1400a3</color>
+    <color name="blue_default">#1400a3</color>
     <color name="blue_pressed">#8b7def</color>
 
-    <color name="yellow_focused">#dbdb00</color>
+    <color name="yellow_default">#dbdb00</color>
     <color name="yellow_pressed">#f9f98d</color>
 </resources>

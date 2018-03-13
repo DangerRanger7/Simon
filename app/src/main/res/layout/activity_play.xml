@@ -10,10 +10,8 @@
         android:id="@+id/green_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/textView2"
-        android:layout_below="@+id/textView2"
         android:layout_marginTop="115dp"
-        android:background="#03962a"
+        android:background="@drawable/green_button_background"
         android:text="Green"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="151dp" />
@@ -25,7 +23,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/green_button"
         android:layout_marginTop="60dp"
-        android:background="#dbdb04"
+        android:background="@drawable/yellow_button_background"
         android:text="Yellow" />
 
     <Button
@@ -35,7 +33,7 @@
         android:layout_alignBottom="@+id/green_button"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="11dp"
-        android:background="#bc1105"
+        android:background="@drawable/red_button_background"
         android:text="Red" />
 
     <Button
@@ -44,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/yellow_button"
-        android:background="#1303a3"
+        android:background="@drawable/blue_button_background"
         android:text="Blue"
      />
 
@@ -104,4 +102,5 @@
     yellow #dbdb00  #f9f98d
     blue   #1400a3  #8b7def
     red    #bc1400  #f87161
+    http://www.viralandroid.com/2015/09/how-to-change-android-button-on-click-press-color.html
 -->
