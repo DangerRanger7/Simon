@@ -97,3 +97,11 @@
         android:text="Start" />
 
 </RelativeLayout>
+
+<!--
+    color  base     light
+    green  #00962b  #68e18b
+    yellow #dbdb00  #f9f98d
+    blue   #1400a3  #8b7def
+    red    #bc1400  #f87161
+-->
