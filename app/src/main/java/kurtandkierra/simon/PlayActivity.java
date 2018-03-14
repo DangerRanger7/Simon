@@ -1,12 +1,14 @@
 package kurtandkierra.simon;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -21,10 +23,11 @@ import java.util.Set;
 
 public class PlayActivity extends Activity {
 
-   // private Handler handler;
+    // private Handler handler;
 
     final Button buttonColor[] = new Button[4];
-    Button buttonColor2[] = new Button[4];
+
+    Button buttonInput[] = new Button[8];
     //soundpool
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
@@ -35,13 +38,13 @@ public class PlayActivity extends Activity {
         setContentView(R.layout.activity_play);
 
         //rotation
-       String hs_label;
+        String hs_label;
         String score_label;
 
-        if (savedInstanceState == null){
+        if (savedInstanceState == null) {
             hs_label = "0";
             score_label = "0";
-        }else{
+        } else {
             hs_label = (String) savedInstanceState.get("highScore");
             score_label = (String) savedInstanceState.get("score");
         }
@@ -83,7 +86,7 @@ public class PlayActivity extends Activity {
         });
 
 
-    //High score and score textview
+        //High score and score textview
    /* TextView highScore_tv = findViewById(R.id.highScore_textview);
     final int HIGHSCORE = 0;
         highScore_tv.setText(""+HIGHSCORE);
@@ -92,43 +95,47 @@ public class PlayActivity extends Activity {
         score_tv.setText(""+SCORE);*/
 
 
-}
-//score
+    }
+
+    //score
     private TextView highScore_tv;
     private TextView score_tv;
     private UpdateTask updateTask;
     int highScore;
 
     //start counter for score
-    private void startCounter(){
+    private void startCounter() {
         highScore_tv = findViewById(R.id.highScore_textview);
-       score_tv =  findViewById(R.id.score_textView);
+        score_tv = findViewById(R.id.score_textView);
 
-        if (updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED){
+        if (updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED) {
             updateTask = null;
         }
-        if (updateTask == null){
+        if (updateTask == null) {
             updateTask = new UpdateTask();
             updateTask.execute();
-        }else{
+        } else {
             Log.i("START", "task is already running");
         }
     }
 
-    /**UpdateTask*************************************************FOR SCORE**********/
+    /**
+     * UpdateTask*************************************************FOR SCORE
+     **********/
     int finalScore;
-   class UpdateTask extends AsyncTask<Void, Void, Void>{
-/************NEED TO FIX******************************************************************/
+
+    class UpdateTask extends AsyncTask<Void, Void, Void> {
+        /************NEED TO FIX******************************************************************/
         @Override
         protected Void doInBackground(Void... voids) {
 
-            try{
-               int score = 0;
-                while(!Thread.interrupted()){
-                   final String scoreString = "The score is " + score;
-                   Log.i("Update: ", scoreString);
-                       score++;
-                     finalScore = score;
+            try {
+                int score = 0;
+                while (!Thread.interrupted()) {
+                    final String scoreString = "The score is " + score;
+                    Log.i("Update: ", scoreString);
+                    score++;
+                    finalScore = score;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -137,7 +144,7 @@ public class PlayActivity extends Activity {
                     });
                     Thread.sleep(1000);
                 }
-            }catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 Log.i("THREAD", "Sleep was interrupted for counter. ");
             }
             return null;
@@ -161,10 +168,10 @@ public class PlayActivity extends Activity {
         soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
             @Override
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                if (status == 0){//means it was a success
+                if (status == 0) {//means it was a success
                     soundsLoaded.add(sampleId);
-                }else{
-                    Log.i("Sound","ERROR CAN'T LOAD SOUND");
+                } else {
+                    Log.i("Sound", "ERROR CAN'T LOAD SOUND");
                 }
             }
         });
@@ -175,13 +182,14 @@ public class PlayActivity extends Activity {
         findViewById(R.id.green_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // view.setPressed(true);
+                // view.setPressed(true);
                 playSound(gameBeepId);
-                 //int ev = MotionEvent.ACTION_DOWN;
-                //int action = ev.getActionMasked();
-              //event(R.id.green_button, ev);
 
-              // view.setBackgroundColor(Color.rgb(7, 237, 68));
+                //int ev = MotionEvent.ACTION_DOWN;
+                //int action = ev.getActionMasked();
+                //event(R.id.green_button, ev);
+
+                // view.setBackgroundColor(Color.rgb(7, 237, 68));
                 // view.setBackgroundColor(0x07ed44);
                 //view.setBackgroundColor(Color.rgb(3, 150, 42));
 
@@ -200,7 +208,7 @@ public class PlayActivity extends Activity {
         findViewById(R.id.yellow_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              //  view.setPressed(true);
+                //  view.setPressed(true);
                 playSound(gameBeepId);
             }
         });
@@ -208,16 +216,17 @@ public class PlayActivity extends Activity {
         findViewById(R.id.blue_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // view.setPressed(true);
-               playSound(gameBeepId);
+                // view.setPressed(true);
+                playSound(gameBeepId);
             }
         });
     }
+
     //onPause
     @Override
     protected void onPause() {
         super.onPause();
-        if (soundPool != null){
+        if (soundPool != null) {
             soundPool.release();
             soundPool = null;
             soundsLoaded.clear();
@@ -225,9 +234,9 @@ public class PlayActivity extends Activity {
     }
 
     //play sound**********************************************************************
-    private void playSound(int soundID){
-        if (soundsLoaded.contains(soundID)){
-            soundPool.play(soundID, 1.0f, 1.0f, 0,0,1.0f);
+    private void playSound(int soundID) {
+        if (soundsLoaded.contains(soundID)) {
+            soundPool.play(soundID, 1.0f, 1.0f, 0, 0, 1.0f);
         }
     }
 
@@ -257,85 +266,66 @@ public class PlayActivity extends Activity {
     /*******Handler***********************************************************************/
 
     //sequence for buttons*******************************************************************************************
+    public void sequence() {
+        int num = 1;
+        int seq;
+        int buttonSequence[] = new int[8];
+        //Random random = new Random();
 
-        public void sequence() {
-                  int[] array = new int[8];
-                 // int random;
-                  int num;
-            Random random = new Random();
-           for (int i = 0; i < 8; i++) {
-               num = random.nextInt(4) + 1;
-                array[i] = num;
+     //   while (compare(buttonSequence[seq], buttonInput[]) ==true){
 
-               buttonPressed(num);
-               onResume();
-               try {
-                   Thread.sleep(1000);
-               } catch (InterruptedException e) {
-                   e.printStackTrace();
-               }
+            for (int i = 0; i < 8; i++) {
+                Random random = new Random();
+                seq = random.nextInt(4) + 1;
+                buttonPressed(seq);
+                buttonSequence[i] = seq;
 
-               /*if (i > 0) {
-                   for (int j = 0; j < 8; j++) {
-
-                       array[j] = num;
-                       onResume();
-                       buttonPressed(num);
-                   }
-               }*/
-                /*   num = array[0];
-                   onResume();
-                   buttonPressed(num);
-                   for(int j = 0; j < array[j]; j++){
-                       num = random.nextInt(4) + 1;
-                       array[i] = num;
-
-                       onResume();
-                       buttonPressed(num);
-                   }
-               }*/
-
-           }
-    }
-    Handler handler = new Handler();
-    public void buttonPressed(int number)  {
-            Button b1, b2, b3, b4;
-
-            switch(number){
-                case 1:
-                    b1 = findViewById(R.id.green_button);
-                    b1.performClick();
-                  Log.i("color:", "GREEN");
-
-                   // b1.setBackgroundColor(Color.rgb(3, 150, 42));
-                   // Thread.sleep(1000);
-                 //   b1.setBackgroundColor(0x03962a);
-
-                   // b1.onKeyDown(07ed44);
-                  //  b1.setBackgroundColor(0x07ed44);
-                    break;
-                case 2:
-                    b2 = findViewById(R.id.red_button);
-                    b2.performClick();
-                        Log.i("color:", "RED");
-                 //  b2.setBackgroundColor(0xf21607);
-                    break;
-                case 3:
-                    b3 = findViewById(R.id.yellow_button);
-                    b3.performClick();
-                    Log.i("color:", "YELLOW");
-                  //  b3.setBackgroundColor(0xffff05);
-                    break;
-                case 4:
-                    b4 = findViewById(R.id.blue_button);
-                    b4.performClick();
-                    Log.i("color:", "BLUE");
-                   // b4.setBackgroundColor(0x1d04f7);
-                    break;
-                default:
-                    break;
+                onResume();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
+
+        }
+
+
+
+//button input
+  /*  public void seq_input(Button si[]){
+
+    }*/
+
+  //  Handler handler = new Handler();
+
+
+    public void buttonPressed(int number) {
+        Button b;
+        switch (number) {
+            case 1:
+                b = findViewById(R.id.green_button);
+                b.performClick();
+                break;
+            case 2:
+                b = findViewById(R.id.red_button);
+                b.performClick();
+                break;
+            case 3:
+                b = findViewById(R.id.yellow_button);
+                b.performClick();
+                break;
+            case 4:
+                b = findViewById(R.id.blue_button);
+                b.performClick();
+                break;
+            default:
+                break;
+        }
+
     }
+
+
     public boolean compare(Button[] bc1, Button[] bc2){
             boolean flag = false;
             for(int i = 0; i < bc1.length; i++){
