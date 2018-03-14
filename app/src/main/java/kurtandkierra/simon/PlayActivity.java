@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -81,7 +82,7 @@ public class PlayActivity extends Activity {
             public void onClick(View view) {
                 //call for sequence
                 startCounter();
-                sequence();
+             //  sequence();
 
             }
         });
@@ -121,35 +122,34 @@ public class PlayActivity extends Activity {
     }
 
     /**
-     * UpdateTask*************************************************FOR SCORE
-     **********/
+     * UpdateTask***********************************************************/
     int finalScore;
 
-    class UpdateTask extends AsyncTask<Void, Void, Void> {
+    class UpdateTask extends AsyncTask<Void, Integer, Void> {
         /************NEED TO FIX******************************************************************/
         @Override
         protected Void doInBackground(Void... voids) {
-
+            boolean simonTurn = true;
+            int num = 1;
             try {
-                int score = 0;
-                while (!Thread.interrupted()) {
-                   /* final String scoreString = "The score is " + score;
-                    Log.i("Update: ", scoreString);
-                    score++;
-                    finalScore = score;
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            score_tv.setText("" + finalScore);
-                        }
-                    });*/
-                    Thread.sleep(1000);
+
+                for (int i = 0; i < num; i++) {
+                    if (simonTurn == true) {
+                        sequence(num);
+                        simonTurn = false;
+                    } else {
+                        simonTurn = true;
+                        Thread.sleep(20000);
+                    }
+                    num++;
                 }
             } catch (InterruptedException e) {
-                Log.i("THREAD", "Sleep was interrupted for counter. ");
+                Log.i("THREAD", "Sleep was interrupted.  ");
             }
             return null;
         }
+
+
     }
 
     //onResume
@@ -172,7 +172,7 @@ public class PlayActivity extends Activity {
                 if (status == 0) {//means it was a success
                     soundsLoaded.add(sampleId);
                 } else {
-                    Log.i("Sound", "ERROR CAN'T LOAD SOUND");
+                    Log.i("Sound", "ERROR CAN'T LOAD SOUND!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
                 }
             }
         });
@@ -261,18 +261,21 @@ public class PlayActivity extends Activity {
         }
     }*/
 
-    /*******Handler***********************************************************************/
-
     //sequence for buttons*******************************************************************************************
-    public void sequence() {
+    public void sequence(int num) {
         //int num = 1;
         int seq;
         int buttonSequence[] = new int[8];
         //Random random = new Random();
+        //need boolean
+        //true for simon
+        //play sund, sleep
+        //reach end flip variable inform user its their turn
+        //
 
-     //   do{
+        //   do{
 
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < num; i++) {
                 Random random = new Random();
                 seq = random.nextInt(4) + 1;
                 buttonPressed(seq);
@@ -287,16 +290,26 @@ public class PlayActivity extends Activity {
 
             }
 
-            /* num++;
-            } while (compare(buttonSequence[seq], buttonInput[]) == true)*/
+                /*GIVE TIME TO THE USER TO INPUT SEQUENCE*/
+                /*final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        handler.postDelayed(this, 500);
+                    }
+                }, 20000);*/
 
         }
 
+            /* num++;
+            } while (compare(buttonSequence[seq], buttonInput[]) == true)*/
+
+
 
 //button input
-  /*  public void seq_input(Button si[]){
+   public void seq_input(){
 
-    }*/
+    }
 
   //  Handler handler = new Handler();
     public void buttonPressed(int number) {
