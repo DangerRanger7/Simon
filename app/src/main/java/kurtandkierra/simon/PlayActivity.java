@@ -12,6 +12,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashSet;
 import java.util.Random;
@@ -132,7 +133,7 @@ public class PlayActivity extends Activity {
             try {
                 int score = 0;
                 while (!Thread.interrupted()) {
-                    final String scoreString = "The score is " + score;
+                   /* final String scoreString = "The score is " + score;
                     Log.i("Update: ", scoreString);
                     score++;
                     finalScore = score;
@@ -141,7 +142,7 @@ public class PlayActivity extends Activity {
                         public void run() {
                             score_tv.setText("" + finalScore);
                         }
-                    });
+                    });*/
                     Thread.sleep(1000);
                 }
             } catch (InterruptedException e) {
@@ -199,7 +200,6 @@ public class PlayActivity extends Activity {
         findViewById(R.id.red_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //view.setPressed(true);
                 playSound(gameBeepId);
 
             }
@@ -208,7 +208,6 @@ public class PlayActivity extends Activity {
         findViewById(R.id.yellow_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //  view.setPressed(true);
                 playSound(gameBeepId);
             }
         });
@@ -216,7 +215,6 @@ public class PlayActivity extends Activity {
         findViewById(R.id.blue_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // view.setPressed(true);
                 playSound(gameBeepId);
             }
         });
@@ -267,12 +265,12 @@ public class PlayActivity extends Activity {
 
     //sequence for buttons*******************************************************************************************
     public void sequence() {
-        int num = 1;
+        //int num = 1;
         int seq;
         int buttonSequence[] = new int[8];
         //Random random = new Random();
 
-     //   while (compare(buttonSequence[seq], buttonInput[]) ==true){
+     //   do{
 
             for (int i = 0; i < 8; i++) {
                 Random random = new Random();
@@ -286,10 +284,13 @@ public class PlayActivity extends Activity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
             }
 
-        }
+            /* num++;
+            } while (compare(buttonSequence[seq], buttonInput[]) == true)*/
 
+        }
 
 
 //button input
@@ -298,55 +299,56 @@ public class PlayActivity extends Activity {
     }*/
 
   //  Handler handler = new Handler();
-
-
     public void buttonPressed(int number) {
         Button b;
         switch (number) {
             case 1:
                 b = findViewById(R.id.green_button);
                 b.performClick();
+                Log.i("Color: ", "GREEN");
                 break;
             case 2:
                 b = findViewById(R.id.red_button);
                 b.performClick();
+                Log.i("Color: ", "RED");
                 break;
             case 3:
                 b = findViewById(R.id.yellow_button);
                 b.performClick();
+                Log.i("Color: ", "YELLOW");
                 break;
             case 4:
                 b = findViewById(R.id.blue_button);
                 b.performClick();
+                Log.i("Color: ", "BLUE");
                 break;
             default:
                 break;
         }
-
     }
 
-
+//compare input and increase score
+int score = 0;
     public boolean compare(Button[] bc1, Button[] bc2){
+        TextView tv = findViewById(R.id.score_textView);
             boolean flag = false;
             for(int i = 0; i < bc1.length; i++){
                 if (bc1[i] == bc2[i]){
                     flag = true;
+                    score += 20;
+                    tv.setText("" + score);
                 }else{
-                    String finalScoreStr = score_tv.getText().toString();
-                    int finalScore = Integer.parseInt(finalScoreStr);
-                    if (finalScore > highScore){
-                        highScore = finalScore;
-                        highScore_tv.setText("" + finalScore);
-                    }
-                    flag = false;
+                  flag = false;
+                    Toast.makeText(getApplicationContext(), "You lose!",
+                            Toast.LENGTH_LONG).show();
                 }
             }
 
         return flag;
     }
-    //rotation
 
-    @Override
+    //rotation
+       @Override
    protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
 
@@ -355,7 +357,6 @@ public class PlayActivity extends Activity {
 
         TextView score = findViewById(R.id.score_textView);
         outState.putString("score", score.getText().toString());
-
     }
 
 
