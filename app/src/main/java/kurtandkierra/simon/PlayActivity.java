@@ -134,40 +134,40 @@ public class PlayActivity extends Activity {
         @Override
         protected Void doInBackground(Void... voids) {
 
-            for (int i = 0; i < num; i++) {
+
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
-                        if (num == 9) {
-                            Thread.interrupted();
-                        } else {
-                            if (simonTurn == true) {
-                                try {
-                                    sequence(num);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
-                                simonTurn = false;
-                                try {
-                                    Thread.sleep(10000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+                        for (int i = 0; i < num; i++) {
+                            if (num == 9) {
+                                Thread.interrupted();
                             } else {
-                                simonTurn = true;
-                                try {
-                                    Thread.sleep(10000);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
+                                if (simonTurn == true) {
+                                    try {
+                                        sequence(num);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                    simonTurn = false;
+                                    try {
+                                        Thread.sleep(10000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    simonTurn = true;
+                                    try {
+                                        Thread.sleep(10000);
+                                    } catch (InterruptedException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
+                            num++;
                         }
                     }
                 });
-
-                num++;
-            }
             return null;
         }
     }
