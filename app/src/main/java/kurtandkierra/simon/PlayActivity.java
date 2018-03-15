@@ -128,16 +128,20 @@ public class PlayActivity extends Activity {
     class UpdateTask extends AsyncTask<Void, Integer, Void> {
         boolean simonTurn = true;
         int num = 1;
+
         /************NEED TO FIX******************************************************************/
 
         @Override
         protected Void doInBackground(Void... voids) {
 
-          for (int i = 0; i < num; i++) {
-                if (num < 9) {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
+            for (int i = 0; i < num; i++) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (num == 9) {
+                            Thread.interrupted();
+                        } else {
                             if (simonTurn == true) {
                                 try {
                                     sequence(num);
@@ -159,22 +163,26 @@ public class PlayActivity extends Activity {
                                 }
                             }
                         }
-                    });
-                    num++;
-                }
-          }
+                    }
+                });
+
+                num++;
+            }
             return null;
         }
+    }
 
-       @Override
+      /* @Override
         protected void onProgressUpdate(Integer... buttons) {
+
+           while (num < 9) {
 
             for (int i = 0; i < num; i++) {
                 if (simonTurn == true) {
                     try {
                         sequence(num);
                         simonTurn = false;
-                        Thread.sleep(20000);
+                        Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -182,16 +190,17 @@ public class PlayActivity extends Activity {
                     try {
                         simonTurn = true;
                         sequence(num);
-                        Thread.sleep(20000);
+                        Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
-                num++;
+            }
+            num++;
             }
             // return null;
         }
-    }
+    }*/
 
     //onResume
     @Override
@@ -315,24 +324,24 @@ public class PlayActivity extends Activity {
         
             for (int i = 0; i < num; i++) {
                 Random random = new Random();
-                seq = random.nextInt(4) + 1;
-                buttonPressed(seq);
-                buttonSequence[i] = seq;
+                    seq = random.nextInt(4) + 1;
+                    buttonPressed(seq);
+                    buttonSequence[i] = seq;
 
-                onResume();
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                    onResume();
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
 
 
-                try {
-                    Thread.sleep(10000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                compare(buttonSequence);
+                    try {
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    compare(buttonSequence);
 
 
                 /*GIVE TIME TO THE USER TO INPUT SEQUENCE*/
@@ -343,6 +352,7 @@ public class PlayActivity extends Activity {
                         handler.postDelayed(this, 500);
                     }
                 }, 20000);*/
+
 
         }
     }
