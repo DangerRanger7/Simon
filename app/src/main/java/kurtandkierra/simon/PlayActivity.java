@@ -139,10 +139,10 @@ public class PlayActivity extends Activity {
                     @Override
                     public void run() {
 
-                        for (int i = 0; i < num; i++) {
-                            if (num == 9) {
+                        for (int i = 0; i < 8; i++) {
+                          /*  if (num == 9) {
                                 Thread.interrupted();
-                            } else {
+                            } else {*/
                                 if (simonTurn == true) {
                                     try {
                                         sequence(num);
@@ -151,22 +151,22 @@ public class PlayActivity extends Activity {
                                     }
                                     simonTurn = false;
                                     try {
-                                        Thread.sleep(10000);
+                                        Thread.sleep(5000);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
                                 } else {
                                     simonTurn = true;
                                     try {
-                                        Thread.sleep(10000);
+                                        Thread.sleep(5000);
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
                                 }
                             }
-                            num++;
+
                         }
-                    }
+                 //   }
                 });
             return null;
         }
@@ -330,14 +330,14 @@ public class PlayActivity extends Activity {
 
                     onResume();
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
 
 
                     try {
-                        Thread.sleep(10000);
+                        Thread.sleep(5000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
