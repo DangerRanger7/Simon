@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@android:color/background_dark">
 
     <Button
         android:id="@+id/green_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="115dp"
+        android:layout_above="@+id/start_button"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/start_button"
         android:background="@drawable/green_button_background"
-        android:text="Green"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="151dp" />
 
@@ -20,31 +21,29 @@
         android:id="@+id/yellow_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/blue_button"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/green_button"
-        android:layout_marginTop="60dp"
-        android:background="@drawable/yellow_button_background"
-        android:text="Yellow" />
+        android:layout_toStartOf="@+id/start_button"
+        android:background="@drawable/yellow_button_background" />
 
     <Button
         android:id="@+id/red_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/green_button"
+        android:layout_above="@+id/start_button"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="11dp"
-        android:background="@drawable/red_button_background"
-        android:text="Red" />
+        android:layout_toEndOf="@+id/start_button"
+        android:background="@drawable/red_button_background" />
 
     <Button
         android:id="@+id/blue_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/yellow_button"
-        android:background="@drawable/blue_button_background"
-        android:text="Blue"
-     />
+        android:layout_below="@+id/red_button"
+        android:layout_marginTop="26dp"
+        android:layout_toEndOf="@+id/start_button"
+        android:background="@drawable/blue_button_background" />
 
     <TextView
         android:id="@+id/textview"
@@ -53,7 +52,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:text="High Score:"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/background_light"
         android:textSize="24sp" />
 
     <TextView
@@ -63,7 +62,7 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/textview"
         android:text="0"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/background_light"
         android:textSize="24sp" />
 
     <TextView
@@ -73,7 +72,7 @@
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textview"
         android:text="Score: "
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/background_light"
         android:textSize="24sp" />
 
     <TextView
@@ -83,16 +82,20 @@
         android:layout_below="@+id/textview"
         android:layout_toEndOf="@+id/textView5"
         android:text="0"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/background_light"
         android:textSize="24sp" />
 
     <Button
         android:id="@+id/start_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/green_button"
         android:layout_centerHorizontal="true"
-        android:text="Start" />
+        android:layout_centerVertical="true"
+        android:background="@android:color/background_light"
+        android:text="Start"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:typeface="serif" />
 
 </RelativeLayout>
 
