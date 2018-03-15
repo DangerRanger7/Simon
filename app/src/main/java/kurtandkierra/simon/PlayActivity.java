@@ -166,22 +166,22 @@ public class PlayActivity extends Activity {
             return null;
         }
 
-       /* @Override
+       @Override
         protected void onProgressUpdate(Integer... buttons) {
 
             for (int i = 0; i < num; i++) {
                 if (simonTurn == true) {
-                    sequence(num);
-                    simonTurn = false;
                     try {
+                        sequence(num);
+                        simonTurn = false;
                         Thread.sleep(20000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    simonTurn = true;
-                    sequence(num);
                     try {
+                        simonTurn = true;
+                        sequence(num);
                         Thread.sleep(20000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -190,7 +190,7 @@ public class PlayActivity extends Activity {
                 num++;
             }
             // return null;
-        }*/
+        }
     }
 
     //onResume
