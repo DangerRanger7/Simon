@@ -126,30 +126,71 @@ public class PlayActivity extends Activity {
     int finalScore;
 
     class UpdateTask extends AsyncTask<Void, Integer, Void> {
+        boolean simonTurn = true;
+        int num = 1;
         /************NEED TO FIX******************************************************************/
+
         @Override
         protected Void doInBackground(Void... voids) {
-            boolean simonTurn = true;
-            int num = 1;
-            try {
 
-                for (int i = 0; i < num; i++) {
-                    if (simonTurn == true) {
-                        sequence(num);
-                        simonTurn = false;
-                    } else {
-                        simonTurn = true;
-                        Thread.sleep(20000);
-                    }
+          for (int i = 0; i < num; i++) {
+                if (num < 9) {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (simonTurn == true) {
+                                try {
+                                    sequence(num);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                simonTurn = false;
+                                try {
+                                    Thread.sleep(10000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            } else {
+                                simonTurn = true;
+                                try {
+                                    Thread.sleep(10000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                    });
                     num++;
                 }
-            } catch (InterruptedException e) {
-                Log.i("THREAD", "Sleep was interrupted.  ");
-            }
+          }
             return null;
         }
 
+       /* @Override
+        protected void onProgressUpdate(Integer... buttons) {
 
+            for (int i = 0; i < num; i++) {
+                if (simonTurn == true) {
+                    sequence(num);
+                    simonTurn = false;
+                    try {
+                        Thread.sleep(20000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    simonTurn = true;
+                    sequence(num);
+                    try {
+                        Thread.sleep(20000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                num++;
+            }
+            // return null;
+        }*/
     }
 
     //onResume
@@ -262,7 +303,7 @@ public class PlayActivity extends Activity {
     }*/
 
     //sequence for buttons*******************************************************************************************
-    public void sequence(int num) {
+    public void sequence(int num) throws InterruptedException {
         //int num = 1;
         int seq;
         int buttonSequence[] = new int[8];
@@ -271,10 +312,7 @@ public class PlayActivity extends Activity {
         //true for simon
         //play sund, sleep
         //reach end flip variable inform user its their turn
-        //
-
-        //   do{
-
+        
             for (int i = 0; i < num; i++) {
                 Random random = new Random();
                 seq = random.nextInt(4) + 1;
@@ -288,7 +326,14 @@ public class PlayActivity extends Activity {
                     e.printStackTrace();
                 }
 
-            }
+
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                compare(buttonSequence);
+
 
                 /*GIVE TIME TO THE USER TO INPUT SEQUENCE*/
                 /*final Handler handler = new Handler();
@@ -300,16 +345,11 @@ public class PlayActivity extends Activity {
                 }, 20000);*/
 
         }
+    }
 
             /* num++;
             } while (compare(buttonSequence[seq], buttonInput[]) == true)*/
 
-
-
-//button input
-   public void seq_input(){
-
-    }
 
   //  Handler handler = new Handler();
     public void buttonPressed(int number) {
@@ -342,7 +382,9 @@ public class PlayActivity extends Activity {
 
 //compare input and increase score
 int score = 0;
-    public boolean compare(Button[] bc1, Button[] bc2){
+    public boolean compare(int[] bc1){
+        int[] bc2 =  new int[bc1.length];
+
         TextView tv = findViewById(R.id.score_textView);
             boolean flag = false;
             for(int i = 0; i < bc1.length; i++){
@@ -350,6 +392,7 @@ int score = 0;
                     flag = true;
                     score += 20;
                     tv.setText("" + score);
+
                 }else{
                   flag = false;
                     Toast.makeText(getApplicationContext(), "You lose!",
