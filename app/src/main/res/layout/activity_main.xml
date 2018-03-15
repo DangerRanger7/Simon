@@ -60,6 +60,7 @@
         android:layout_marginTop="8dp"
         android:background="@android:color/background_light"
         android:text="Play"
+        android:textColor="@android:color/background_dark"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/about_button"
