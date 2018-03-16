@@ -31,6 +31,7 @@ public class PlayActivity extends Activity {
     private Set<Integer> soundsLoaded;
     int seqNum = 8;
     int[] sequence = new int[seqNum];
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,8 +88,6 @@ public class PlayActivity extends Activity {
             public void onClick(View view) {
                 //call for sequence
                 startCounter();
-             //  sequence();
-
             }
         });
 
@@ -130,10 +129,14 @@ public class PlayActivity extends Activity {
 
             for (int i = 0; i < seqNum; i++) {
 
-                num = random.nextInt(4) + 1;
-
+                num = random.nextInt(4);
+                //buttonColor[num].performClick();
                 sequence[i] = num;
-
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 onProgressUpdate(num);
             }
             return null;
@@ -141,29 +144,33 @@ public class PlayActivity extends Activity {
 
        @Override
         protected void onProgressUpdate(Integer... num) {
-
+          // Button buttonColor[] = new Button[4];
         int number = num[0];
 
-           Button b;
+          // Button b;
            switch (number) {
                case 1:
-                   b = findViewById(R.id.green_button);
+                  // b = findViewById(R.id.green_button);
                   // b.performClick();
+                   //buttonColor[0].performClick();
                    Log.i("Color: ", "GREEN");
                    break;
                case 2:
-                   b = findViewById(R.id.red_button);
+                   //b = findViewById(R.id.red_button);
                  //  b.performClick();
+                  // buttonColor[1].performClick();
                    Log.i("Color: ", "RED");
                    break;
                case 3:
-                   b = findViewById(R.id.yellow_button);
+                  // b = findViewById(R.id.yellow_button);
                   // b.performClick();
+                  // buttonColor[2].performClick();
                    Log.i("Color: ", "YELLOW");
                    break;
                case 4:
-                   b = findViewById(R.id.blue_button);
+                 // b = findViewById(R.id.blue_button);
                   // b.performClick();
+                  // buttonColor[3].performClick();
                    Log.i("Color: ", "BLUE");
                    break;
                default:
