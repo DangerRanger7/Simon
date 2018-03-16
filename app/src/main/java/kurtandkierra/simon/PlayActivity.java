@@ -1,15 +1,11 @@
 package kurtandkierra.simon;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -33,7 +29,8 @@ public class PlayActivity extends Activity {
     //soundpool
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
-
+    int seqNum = 8;
+    int[] sequence = new int[seqNum];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +71,14 @@ public class PlayActivity extends Activity {
 
                 }
             });
+
+            /*create ImageButton*/
+            //final int ids[] = {R.id.green_ImageButton, R.id.red_ImageButton, R.id.yellow_ImageButton, R.id.blueImageButton};
+            /*
+                for (int i = 0; i < ids.length; i++){
+                    ids[i] = findViewById(this);
+                }
+            * */
         }
 
         //start button
@@ -86,16 +91,6 @@ public class PlayActivity extends Activity {
 
             }
         });
-
-
-        //High score and score textview
-   /* TextView highScore_tv = findViewById(R.id.highScore_textview);
-    final int HIGHSCORE = 0;
-        highScore_tv.setText(""+HIGHSCORE);
-    TextView score_tv = findViewById(R.id.score_textView);
-    final int SCORE = 0;
-        score_tv.setText(""+SCORE);*/
-
 
     }
 
@@ -126,20 +121,79 @@ public class PlayActivity extends Activity {
     int finalScore;
 
     class UpdateTask extends AsyncTask<Void, Integer, Void> {
-        boolean simonTurn = true;
-        int num = 1;
-
-        /************NEED TO FIX******************************************************************/
-
+               
         @Override
         protected Void doInBackground(Void... voids) {
+            boolean simonTurn = true;
+            int num;
+            Random random = new Random();
+
+            for (int i = 0; i < seqNum; i++) {
+
+                num = random.nextInt(4) + 1;
+
+                sequence[i] = num;
+
+                onProgressUpdate(num);
+            }
+            return null;
+        }
+
+       @Override
+        protected void onProgressUpdate(Integer... num) {
+
+        int number = num[0];
+
+           Button b;
+           switch (number) {
+               case 1:
+                   b = findViewById(R.id.green_button);
+                  // b.performClick();
+                   Log.i("Color: ", "GREEN");
+                   break;
+               case 2:
+                   b = findViewById(R.id.red_button);
+                 //  b.performClick();
+                   Log.i("Color: ", "RED");
+                   break;
+               case 3:
+                   b = findViewById(R.id.yellow_button);
+                  // b.performClick();
+                   Log.i("Color: ", "YELLOW");
+                   break;
+               case 4:
+                   b = findViewById(R.id.blue_button);
+                  // b.performClick();
+                   Log.i("Color: ", "BLUE");
+                   break;
+               default:
+                   break;
+           }
+           onResume();
+
+           /* for (int i = 0; i < num; i++) {
+                if (simonTurn == true) {
+                    try {
+                        sequence(num);
+                        simonTurn = false;
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    try {
+                        simonTurn = true;
+                        sequence(num);
+                        Thread.sleep(10000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }*/
 
 
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        for (int i = 0; i < num; i++) {
+            // return null;
+           /*for (int i = 0; i < num; i++) {
                            if (num == 9) {
                                 Thread.interrupted();
                             } else {
@@ -163,50 +217,15 @@ public class PlayActivity extends Activity {
                                         e.printStackTrace();
                                     }
                                 }
-                            }
-
-                        }
-                   }
-                });
-            return null;
+                            }*/
         }
     }
 
-      /* @Override
-        protected void onProgressUpdate(Integer... buttons) {
-
-           while (num < 9) {
-
-            for (int i = 0; i < num; i++) {
-                if (simonTurn == true) {
-                    try {
-                        sequence(num);
-                        simonTurn = false;
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    try {
-                        simonTurn = true;
-                        sequence(num);
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            num++;
-            }
-            // return null;
-        }
-    }*/
-
+/*=======SOUND=========********************************===================================******************************************/
     //onResume
     @Override
     protected void onResume() {
         super.onResume();
-        Button b;
 
         AudioAttributes.Builder attrBuilder = new AudioAttributes.Builder();
         attrBuilder.setUsage(AudioAttributes.USAGE_GAME);
@@ -233,16 +252,7 @@ public class PlayActivity extends Activity {
         findViewById(R.id.green_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // view.setPressed(true);
                 playSound(gameBeepId);
-
-                //int ev = MotionEvent.ACTION_DOWN;
-                //int action = ev.getActionMasked();
-                //event(R.id.green_button, ev);
-
-                // view.setBackgroundColor(Color.rgb(7, 237, 68));
-                // view.setBackgroundColor(0x07ed44);
-                //view.setBackgroundColor(Color.rgb(3, 150, 42));
 
             }
         });
@@ -251,7 +261,6 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
-
             }
         });
         //yellow_button
@@ -287,32 +296,10 @@ public class PlayActivity extends Activity {
             soundPool.play(soundID, 1.0f, 1.0f, 0, 0, 1.0f);
         }
     }
-
-    //event
-    /*  MotionEvent event = MotionEvent.ACTION_DOWN);
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    view.setBackgroundColor(Color.rgb(7, 237, 68));
-                }*/
-   /* private void event(int id, int event) {
-        Button b;
-        switch(id) {
-            case R.id.green_button:
-               if(event == MotionEvent.ACTION_DOWN){
-                   b = findViewById(id);
-                   b.setBackgroundColor(Color.rgb(7, 237, 68));
-               }
-               break;
-
-            default: break;
-            /* if (event.getAction() == ACTION_DOWN) {
-                view.setBackgroundColor(Color.rgb(7, 237, 68));
-            }
-            return true;
-        }
-    }*/
+/*END OF SOUND ****************======================*********************************======================================************/
 
     //sequence for buttons*******************************************************************************************
-    public void sequence(int num) throws InterruptedException {
+    /*public void sequence(int num) throws InterruptedException {
         //int num = 1;
         int seq;
         int buttonSequence[] = new int[8];
@@ -343,26 +330,11 @@ public class PlayActivity extends Activity {
                     }
                     compare(buttonSequence);
 
-
-                /*GIVE TIME TO THE USER TO INPUT SEQUENCE*/
-                /*final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        handler.postDelayed(this, 500);
-                    }
-                }, 20000);*/
-
-
         }
-    }
-
-            /* num++;
-            } while (compare(buttonSequence[seq], buttonInput[]) == true)*/
-
+    }*/
 
   //  Handler handler = new Handler();
-    public void buttonPressed(int number) {
+    /*public void buttonPressed(int number) {
         Button b;
         switch (number) {
             case 1:
@@ -388,7 +360,7 @@ public class PlayActivity extends Activity {
             default:
                 break;
         }
-    }
+    }*/
 
 //compare input and increase score
 int score = 0;
@@ -424,20 +396,5 @@ int score = 0;
         TextView score = findViewById(R.id.score_textView);
         outState.putString("score", score.getText().toString());
     }
-
-
-    //on key down
-   /* @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-       // return super.onKeyDown(keyCode, event);
-
-        if (keyCode == KeyEvent.ACTION_DOWN){
-           buttonColor[0].setBackgroundColor(0x07ed44);
-           buttonColor[1].setBackgroundColor(0xf21607);
-           buttonColor[2].setBackgroundColor(0xffff05);
-           buttonColor[3].setBackgroundColor(0x1d04f7);
-        }
-        return true;
-    }*/
 
 }
