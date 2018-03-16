@@ -45,7 +45,7 @@
         android:layout_toEndOf="@+id/start_button"
         android:background="@drawable/blue_button_background" />
 
-   <!-- <TextView
+    <!-- <TextView
         android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -117,6 +117,41 @@
         android:text="0"
         android:textColor="@android:color/background_light"
         android:textSize="24sp" />
+
+    <!--ImageButtons-->
+    <!--<ImageButton
+        android:id="@+id/red_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/imageButton6"
+        android:background="@drawable/red_dark" />
+
+    <ImageButton
+        android:id="@+id/blue_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/yellow_imageButton"
+        android:background="@drawable/blue_dark" />
+
+    <ImageButton
+        android:id="@+id/yellow_imageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/imageButton6"
+        android:layout_below="@+id/yellow_button"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/yellow_dark" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/yellow_button"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="22dp"
+        android:background="@drawable/green_dark" /> -->
 
 </RelativeLayout>
 

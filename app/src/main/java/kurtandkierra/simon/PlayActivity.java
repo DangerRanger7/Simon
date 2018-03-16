@@ -139,10 +139,10 @@ public class PlayActivity extends Activity {
                     @Override
                     public void run() {
 
-                        for (int i = 0; i < 8; i++) {
-                          /*  if (num == 9) {
+                        for (int i = 0; i < num; i++) {
+                           if (num == 9) {
                                 Thread.interrupted();
-                            } else {*/
+                            } else {
                                 if (simonTurn == true) {
                                     try {
                                         sequence(num);
@@ -166,7 +166,7 @@ public class PlayActivity extends Activity {
                             }
 
                         }
-                 //   }
+                   }
                 });
             return null;
         }
