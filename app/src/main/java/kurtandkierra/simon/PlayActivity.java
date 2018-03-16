@@ -24,8 +24,8 @@ public class PlayActivity extends Activity {
 
     // private Handler handler;
 
-    final Button buttonColor[] = new Button[4];
     final ImageButton[] ids = new ImageButton[4];
+
     Button buttonInput[] = new Button[8];
     //soundpool
     private SoundPool soundPool;
@@ -40,42 +40,23 @@ public class PlayActivity extends Activity {
 
         //rotation
         String hs_label;
-        String score_label;
 
         if (savedInstanceState == null) {
             hs_label = "0";
-            score_label = "0";
+
         } else {
             hs_label = (String) savedInstanceState.get("highScore");
-            score_label = (String) savedInstanceState.get("score");
+
         }
         final TextView highScore_tv = findViewById(R.id.highScore_textview);
 
         highScore_tv.setText(hs_label);
 
-
-        //final int buttonColor[] = new int[4];
-
         //for soundsLoaded
         soundsLoaded = new HashSet<Integer>();
 
-        //button id
-       /* buttonColor[0] = findViewById(R.id.green_button);
-        buttonColor[1] = findViewById(R.id.red_button);
-        buttonColor[2] = findViewById(R.id.yellow_button);
-        buttonColor[3] = findViewById(R.id.blue_button);
-
-        for (int i = 0; i < 4; i++) {
-            buttonColor[i].setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });*/
-
-            /*create ImageButton*/
-           // final int[] ids = {R.id.green_imageButton, R.id.red_imageButton, R.id.yellow_imageButton, R.id.blue_imageButton};
-            ids[0] = findViewById(R.id.green_imageButton);
+             /*create ImageButton*/
+             ids[0] = findViewById(R.id.green_imageButton);
             ids[1] = findViewById(R.id.red_imageButton);
             ids[2] = findViewById(R.id.yellow_imageButton);
             ids[3] = findViewById(R.id.blue_imageButton);
@@ -89,9 +70,18 @@ public class PlayActivity extends Activity {
                    });
                 }
 
+                //start button
+        findViewById(R.id.start_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startCounter();
+            }
+        });
         }
 
-     //score
+
+
+    //score
     private TextView highScore_tv;
     private TextView score_tv;
     private UpdateTask updateTask;
@@ -146,35 +136,29 @@ public class PlayActivity extends Activity {
         int number = num[0];
 
           Button b;
-          /* switch (number) {
+           switch (number) {
                case 1:
-                   b = findViewById(R.id.green_imageButton);
-                   b.performClick();
-                   //buttonColor[0].performClick();
+                   ids[0].performClick();
                    Log.i("Color: ", "GREEN");
                    break;
                case 2:
-                   b = findViewById(R.id.red_imageButton);
-                  b.performClick();
-                  // buttonColor[1].performClick();
+                   ids[1].performClick();
                    Log.i("Color: ", "RED");
                    break;
                case 3:
-                  b = findViewById(R.id.yellow_imageButton);
-                   b.performClick();
+                 ids[2].performClick();
                   // buttonColor[2].performClick();
                    Log.i("Color: ", "YELLOW");
                    break;
                case 4:
-                  b = findViewById(R.id.blue_imageButton);
-                   b.performClick();
+                  ids[3].performClick();
                   // buttonColor[3].performClick();
                    Log.i("Color: ", "BLUE");
                    break;
                default:
                    break;
            }
-           onResume();*/
+           onResume();
 
            /* for (int i = 0; i < num; i++) {
                 if (simonTurn == true) {
