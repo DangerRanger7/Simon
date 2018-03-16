@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +25,7 @@ public class PlayActivity extends Activity {
     // private Handler handler;
 
     final Button buttonColor[] = new Button[4];
-
+    final ImageButton[] ids = new ImageButton[4];
     Button buttonInput[] = new Button[8];
     //soundpool
     private SoundPool soundPool;
@@ -49,10 +50,9 @@ public class PlayActivity extends Activity {
             score_label = (String) savedInstanceState.get("score");
         }
         final TextView highScore_tv = findViewById(R.id.highScore_textview);
-        final TextView score_tv = findViewById(R.id.score_textView);
 
         highScore_tv.setText(hs_label);
-        score_tv.setText(score_label);
+
 
         //final int buttonColor[] = new int[4];
 
@@ -60,7 +60,7 @@ public class PlayActivity extends Activity {
         soundsLoaded = new HashSet<Integer>();
 
         //button id
-        buttonColor[0] = findViewById(R.id.green_button);
+       /* buttonColor[0] = findViewById(R.id.green_button);
         buttonColor[1] = findViewById(R.id.red_button);
         buttonColor[2] = findViewById(R.id.yellow_button);
         buttonColor[3] = findViewById(R.id.blue_button);
@@ -71,29 +71,27 @@ public class PlayActivity extends Activity {
                 public void onClick(View view) {
 
                 }
-            });
+            });*/
 
             /*create ImageButton*/
-            //final int ids[] = {R.id.green_ImageButton, R.id.red_ImageButton, R.id.yellow_ImageButton, R.id.blueImageButton};
-            /*
+           // final int[] ids = {R.id.green_imageButton, R.id.red_imageButton, R.id.yellow_imageButton, R.id.blue_imageButton};
+            ids[0] = findViewById(R.id.green_imageButton);
+            ids[1] = findViewById(R.id.red_imageButton);
+            ids[2] = findViewById(R.id.yellow_imageButton);
+            ids[3] = findViewById(R.id.blue_imageButton);
                 for (int i = 0; i < ids.length; i++){
-                    ids[i] = findViewById(this);
+                   // ids[i].setOnClickListener(this);
+                   ids[i].setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View view) {
+
+                       }
+                   });
                 }
-            * */
+
         }
 
-        //start button
-        findViewById(R.id.start_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //call for sequence
-                startCounter();
-            }
-        });
-
-    }
-
-    //score
+     //score
     private TextView highScore_tv;
     private TextView score_tv;
     private UpdateTask updateTask;
@@ -102,7 +100,7 @@ public class PlayActivity extends Activity {
     //start counter for score
     private void startCounter() {
         highScore_tv = findViewById(R.id.highScore_textview);
-        score_tv = findViewById(R.id.score_textView);
+
 
         if (updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED) {
             updateTask = null;
@@ -129,7 +127,7 @@ public class PlayActivity extends Activity {
 
             for (int i = 0; i < seqNum; i++) {
 
-                num = random.nextInt(4);
+                num = random.nextInt(4) + 1;
                 //buttonColor[num].performClick();
                 sequence[i] = num;
                 try {
@@ -147,36 +145,36 @@ public class PlayActivity extends Activity {
           // Button buttonColor[] = new Button[4];
         int number = num[0];
 
-          // Button b;
-           switch (number) {
+          Button b;
+          /* switch (number) {
                case 1:
-                  // b = findViewById(R.id.green_button);
-                  // b.performClick();
+                   b = findViewById(R.id.green_imageButton);
+                   b.performClick();
                    //buttonColor[0].performClick();
                    Log.i("Color: ", "GREEN");
                    break;
                case 2:
-                   //b = findViewById(R.id.red_button);
-                 //  b.performClick();
+                   b = findViewById(R.id.red_imageButton);
+                  b.performClick();
                   // buttonColor[1].performClick();
                    Log.i("Color: ", "RED");
                    break;
                case 3:
-                  // b = findViewById(R.id.yellow_button);
-                  // b.performClick();
+                  b = findViewById(R.id.yellow_imageButton);
+                   b.performClick();
                   // buttonColor[2].performClick();
                    Log.i("Color: ", "YELLOW");
                    break;
                case 4:
-                 // b = findViewById(R.id.blue_button);
-                  // b.performClick();
+                  b = findViewById(R.id.blue_imageButton);
+                   b.performClick();
                   // buttonColor[3].performClick();
                    Log.i("Color: ", "BLUE");
                    break;
                default:
                    break;
            }
-           onResume();
+           onResume();*/
 
            /* for (int i = 0; i < num; i++) {
                 if (simonTurn == true) {
@@ -256,7 +254,7 @@ public class PlayActivity extends Activity {
         //load sounds
         final int gameBeepId = soundPool.load(this, R.raw.gamebeep, 1);
         //green_button
-        findViewById(R.id.green_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.green_imageButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
@@ -264,21 +262,21 @@ public class PlayActivity extends Activity {
             }
         });
         //red_button
-        findViewById(R.id.red_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.red_imageButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
             }
         });
         //yellow_button
-        findViewById(R.id.yellow_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.yellow_imageButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
             }
         });
         //blue_button
-        findViewById(R.id.blue_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.blue_imageButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
@@ -374,13 +372,13 @@ int score = 0;
     public boolean compare(int[] bc1){
         int[] bc2 =  new int[bc1.length];
 
-        TextView tv = findViewById(R.id.score_textView);
+
             boolean flag = false;
             for(int i = 0; i < bc1.length; i++){
                 if (bc1[i] == bc2[i]){
                     flag = true;
                     score += 20;
-                    tv.setText("" + score);
+
 
                 }else{
                   flag = false;
@@ -400,8 +398,7 @@ int score = 0;
         TextView highScore = findViewById(R.id.highScore_textview);
         outState.putString("highScore", highScore.getText().toString());
 
-        TextView score = findViewById(R.id.score_textView);
-        outState.putString("score", score.getText().toString());
+
     }
 
 }
