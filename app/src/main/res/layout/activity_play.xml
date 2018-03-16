@@ -70,7 +70,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textview"
+        android:layout_below="@+id/textView"
         android:text="Score: "
         android:textColor="@android:color/background_light"
         android:textSize="24sp" />
@@ -79,7 +79,7 @@
         android:id="@+id/score_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textview"
+        android:layout_below="@+id/textView"
         android:layout_toEndOf="@+id/textView5"
         android:text="0"
         android:textColor="@android:color/background_light"
@@ -119,13 +119,13 @@
         android:textSize="24sp" />
 
     <!--ImageButtons-->
-    <!--<ImageButton
+  <!--  <ImageButton
         android:id="@+id/red_imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/imageButton6"
-        android:background="@drawable/red_dark" />
+        android:layout_alignTop="@+id/green_imageButton"
+        android:src="@drawable/red_imagebutton" />
 
     <ImageButton
         android:id="@+id/blue_imageButton"
@@ -133,25 +133,25 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/yellow_imageButton"
-        android:background="@drawable/blue_dark" />
+        android:src="@drawable/blue_imagebutton" />
 
     <ImageButton
         android:id="@+id/yellow_imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/imageButton6"
+        android:layout_alignStart="@+id/green_imageButton"
         android:layout_below="@+id/yellow_button"
         android:layout_marginTop="21dp"
-        android:background="@drawable/yellow_dark" />
+        android:src="@drawable/yellow_imagebutton" />
 
     <ImageButton
-        android:id="@+id/imageButton6"
+        android:id="@+id/green_imageButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/yellow_button"
         android:layout_alignParentStart="true"
         android:layout_marginStart="22dp"
-        android:background="@drawable/green_dark" /> -->
+        android:src="@drawable/green_imagebutton" /> -->
 
 </RelativeLayout>
 
