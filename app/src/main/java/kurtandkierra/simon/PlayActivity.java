@@ -202,13 +202,20 @@ public class PlayActivity extends Activity {
                    break;
            }
 
-
            handler.post(new Runnable() {
                @Override
                public void run() {
                    ids[number].performClick();
+                   ids[number].setPressed(true);
                }
            });
+
+           handler.postDelayed(new Runnable() {
+               @Override
+               public void run() {
+                   ids[number].setPressed(false);
+               }
+           }, 100);
 
            onResume();
 
@@ -296,6 +303,7 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
+             //   view.setPressed(false);
                 //view.performClick();
             }
         });
@@ -304,6 +312,7 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
+               // view.setPressed(false);
                 //view.performClick();
             }
         });
@@ -312,6 +321,7 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
+               // view.setPressed(false);
                 //view.performClick();
             }
         });
@@ -320,6 +330,7 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
+             //  view.setPressed(false);
                // view.performClick();
             }
         });
