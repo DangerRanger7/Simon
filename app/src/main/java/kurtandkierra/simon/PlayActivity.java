@@ -13,7 +13,9 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
@@ -31,7 +33,8 @@ public class PlayActivity extends Activity {
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
     int seqNum = 8;
-    int[] sequence = new int[seqNum];
+    List<Integer> sequence = new ArrayList<Integer>();
+    //int[] sequence = new int[seqNum];
     private Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,10 +123,7 @@ public class PlayActivity extends Activity {
 
             for (int i = 0; i < seqNum; i++) {
                 num = random.nextInt(4);
-
-                sequence[i] = num;
-               // ids[num].performClick();
-
+                sequence.add(num);
 
                 try {
                     Thread.sleep(1000);
@@ -131,6 +131,19 @@ public class PlayActivity extends Activity {
                     e.printStackTrace();
                 }
                 onProgressUpdate(num);
+
+              if  (i > 0) {
+                  for (int j = 0; j < sequence.size(); j++) {
+
+                      try {
+                          Thread.sleep(1000);
+                      } catch (InterruptedException e) {
+                          e.printStackTrace();
+                      }
+
+                      onProgressUpdate(sequence.get(j));
+                  }
+              }
 
                 //repeat sequence
                /* if (sequence.length > 1){
@@ -150,16 +163,6 @@ public class PlayActivity extends Activity {
             /*    for (int j = 0; j < sequence.length; j++){
                         sequence[j].performClick();
                 }*/
-
-                /**Handler*/
-                /*final int finalNum = num;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ids[finalNum].performClick();
-                    }
-                });*/
-
 
             }
             return null;
@@ -226,7 +229,7 @@ public class PlayActivity extends Activity {
             }*/
 
 
-                   // return null;
+           // return null;
            /*for (int i = 0; i < num; i++) {
                            if (num == 9) {
                                 Thread.interrupted();
@@ -258,7 +261,6 @@ public class PlayActivity extends Activity {
 
 /*=======SOUND=========********************************===================================******************************************/
     //onResume
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -289,8 +291,6 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
-             //   view.setPressed(false);
-                //view.performClick();
             }
         });
         //red_button
@@ -298,8 +298,6 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
-               // view.setPressed(false);
-                //view.performClick();
             }
         });
         //yellow_button
@@ -307,8 +305,6 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
-               // view.setPressed(false);
-                //view.performClick();
             }
         });
         //blue_button
@@ -316,8 +312,6 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
-             //  view.setPressed(false);
-               // view.performClick();
             }
         });
     }
@@ -434,7 +428,6 @@ int score = 0;
 
         TextView highScore = findViewById(R.id.highScore_textview);
         outState.putString("highScore", highScore.getText().toString());
-
 
     }
 
