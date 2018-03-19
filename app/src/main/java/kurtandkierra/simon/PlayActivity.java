@@ -27,7 +27,7 @@ public class PlayActivity extends Activity {
 
 
     final ImageButton[] ids = new ImageButton[4];
-
+    boolean simonTurn = true;
     Button buttonInput[] = new Button[8];
     //soundpool
     private SoundPool soundPool;
@@ -107,21 +107,21 @@ public class PlayActivity extends Activity {
         }
     }
 
-    /**
-     * UpdateTask***********************************************************/
+    /*** UpdateTask***********************************************************/
     int finalScore;
 
     class UpdateTask extends AsyncTask<Void, Integer, Void> {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            boolean simonTurn = true;
+
             int num;
             Random random = new Random();
 
             //repeat sequence
-
-            for (int i = 0; i < seqNum; i++) {
+            int i = 0;
+            //for (int i = 0; i < seqNum; i++) {
+            while (simonTurn && i < seqNum) {
                 num = random.nextInt(4);
                 sequence.add(num);
 
@@ -131,8 +131,25 @@ public class PlayActivity extends Activity {
                     e.printStackTrace();
                 }
                 onProgressUpdate(num);
+                i++;
+            }
 
-              if  (i > 0) {
+                /*for (int  k = 0; k < sequence.size(); k++){
+                    buttonPressed(ids[num]);
+                }
+                Handler user = new Handler();
+                user.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        for (int k = 0; k < sequence.size(); k++){
+
+                        }
+                    }
+                });*/
+
+
+
+              /*if  (i > 0) {
                   for (int j = 0; j < sequence.size(); j++) {
 
                       try {
@@ -140,12 +157,12 @@ public class PlayActivity extends Activity {
                       } catch (InterruptedException e) {
                           e.printStackTrace();
                       }
-
                       onProgressUpdate(sequence.get(j));
                   }
-              }
+              }*/
 
-                //repeat sequence
+
+            //repeat sequence
                /* if (sequence.length > 1){
                     for (int j = 0; j < sequence.length; j++){
                        sequence[j] = sequence[j];
@@ -159,105 +176,92 @@ public class PlayActivity extends Activity {
                         onProgressUpdate(num);
                     }
                 }*/
-                //sequence
+            //sequence
             /*    for (int j = 0; j < sequence.length; j++){
                         sequence[j].performClick();
                 }*/
 
-            }
+
             return null;
         }
 
-       @Override
+        @Override
         protected void onProgressUpdate(Integer... num) {
 
-        final int number = num[0];
-           ImageButton b;
+            final int number = num[0];
+            ImageButton b;
 
-           switch (number) {
-               case 0:
-                   Log.i("Color: ", "GREEN");
-                   break;
-               case 1:
-                   Log.i("Color: ", "RED");
-                   break;
-               case 2:
-                   Log.i("Color: ", "YELLOW");
-                   break;
-               case 3:
-                   Log.i("Color: ", "BLUE");
-                   break;
-               default:
-                   break;
-           }
+            switch (number) {
+                case 0:
+                    Log.i("Color: ", "GREEN");
+                    break;
+                case 1:
+                    Log.i("Color: ", "RED");
+                    break;
+                case 2:
+                    Log.i("Color: ", "YELLOW");
+                    break;
+                case 3:
+                    Log.i("Color: ", "BLUE");
+                    break;
+                default:
+                    break;
+            }
 
-           handler.post(new Runnable() {
-               @Override
-               public void run() {
-                   ids[number].performClick();
-                   ids[number].setPressed(true);
-               }
-           });
-
-           handler.postDelayed(new Runnable() {
-               @Override
-               public void run() {
-                   ids[number].setPressed(false);
-               }
-           }, 500);
-
-           //onResume();
-
-           /* for (int i = 0; i < num; i++) {
-                if (simonTurn == true) {
-                    try {
-                        sequence(num);
-                        simonTurn = false;
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-
-                } else {
-                    try {
-                        simonTurn = true;
-                        sequence(num);
-                        Thread.sleep(10000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    ids[number].performClick();
+                    ids[number].setPressed(true);
                 }
-            }*/
+            });
+
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    ids[number].setPressed(false);
+                }
+            }, 500);
+
+            simonTurn = false;
+
+            // for (int i = 0; i < seqNum; i++) {
+            while (simonTurn == false) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(getApplicationContext(), "Here!!!",
+                                Toast.LENGTH_LONG).show();
+
+                        try {
+                            Thread.sleep(10000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                      //  for (int )
+                    }
+                });
+                simonTurn = true;
+            }
+
+            //user input
 
 
-           // return null;
-           /*for (int i = 0; i < num; i++) {
-                           if (num == 9) {
-                                Thread.interrupted();
-                            } else {
-                                if (simonTurn == true) {
-                                    try {
-                                        sequence(num);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                    simonTurn = false;
-                                    try {
-                                        Thread.sleep(5000);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                } else {
-                                    simonTurn = true;
-                                    try {
-                                        Thread.sleep(5000);
-                                    } catch (InterruptedException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }*/
-       }
+        }
     }
 
+//user turn
+  public void usersTurn(){
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), "Here!!!",
+                        Toast.LENGTH_LONG).show();
+            }
+        }, 10000);
+
+  }
 
 /*=======SOUND=========********************************===================================******************************************/
     //onResume
@@ -399,14 +403,14 @@ public class PlayActivity extends Activity {
     }*/
 
 //compare input and increase score
-int score = 0;
-    public boolean compare(int[] bc1){
-        int[] bc2 =  new int[bc1.length];
+/*int score = 0;
+    public boolean compare(List bc1){
+       List int[] bc2 =  new int[bc1.size()];
 
 
             boolean flag = false;
-            for(int i = 0; i < bc1.length; i++){
-                if (bc1[i] == bc2[i]){
+            for(int i = 0; i < bc1.size(); i++){
+                if (bc1.get(i) == bc2[i]){
                     flag = true;
                     score += 20;
 
@@ -419,7 +423,7 @@ int score = 0;
             }
 
         return flag;
-    }
+    }*/
 
     //rotation
        @Override
