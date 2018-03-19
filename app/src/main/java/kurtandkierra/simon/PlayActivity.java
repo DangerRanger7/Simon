@@ -5,6 +5,7 @@ import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,7 +23,6 @@ import java.util.Set;
 
 public class PlayActivity extends Activity {
 
-    // private Handler handler;
 
     final ImageButton[] ids = new ImageButton[4];
 
@@ -32,7 +32,7 @@ public class PlayActivity extends Activity {
     private Set<Integer> soundsLoaded;
     int seqNum = 8;
     int[] sequence = new int[seqNum];
-
+    private Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,9 +77,11 @@ public class PlayActivity extends Activity {
                 startCounter();
             }
         });
+
+       //handler
+        handler = new Handler();
+
         }
-
-
 
     //score
     private TextView highScore_tv;
@@ -90,7 +92,6 @@ public class PlayActivity extends Activity {
     //start counter for score
     private void startCounter() {
         highScore_tv = findViewById(R.id.highScore_textview);
-
 
         if (updateTask != null && updateTask.getStatus() == AsyncTask.Status.FINISHED) {
             updateTask = null;
@@ -108,56 +109,107 @@ public class PlayActivity extends Activity {
     int finalScore;
 
     class UpdateTask extends AsyncTask<Void, Integer, Void> {
-               
+
         @Override
         protected Void doInBackground(Void... voids) {
             boolean simonTurn = true;
             int num;
             Random random = new Random();
 
-            for (int i = 0; i < seqNum; i++) {
+            //repeat sequence
 
-                num = random.nextInt(4) + 1;
-                //buttonColor[num].performClick();
+            for (int i = 0; i < seqNum; i++) {
+                num = random.nextInt(4);
+
                 sequence[i] = num;
+               // ids[num].performClick();
+
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 onProgressUpdate(num);
+
+                //repeat sequence
+               /* if (sequence.length > 1){
+                    for (int j = 0; j < sequence.length; j++){
+                       sequence[j] = sequence[j];
+
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        onProgressUpdate(num);
+                    }
+                }*/
+                //sequence
+            /*    for (int j = 0; j < sequence.length; j++){
+                        sequence[j].performClick();
+                }*/
+
+                /**Handler*/
+                /*final int finalNum = num;
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ids[finalNum].performClick();
+                    }
+                });*/
+
+
             }
             return null;
         }
 
        @Override
         protected void onProgressUpdate(Integer... num) {
-          // Button buttonColor[] = new Button[4];
-        int number = num[0];
 
-          Button b;
+        final int number = num[0];
+           ImageButton b;
+
            switch (number) {
-               case 1:
-                   ids[0].performClick();
+               case 0:
+                   b = findViewById(R.id.green_imageButton);
+                 //  ids[0].performClick();
+                   //b.performClick();
                    Log.i("Color: ", "GREEN");
                    break;
-               case 2:
-                   ids[1].performClick();
+               case 1:
+                   b = findViewById(R.id.red_imageButton);
+                   //b.performClick();
+                   //ids[1].performClick();
                    Log.i("Color: ", "RED");
                    break;
-               case 3:
-                 ids[2].performClick();
+               case 2:
+                   b = findViewById(R.id.yellow_imageButton);
+                  // b.performClick();
+                // ids[2].performClick();
                   // buttonColor[2].performClick();
                    Log.i("Color: ", "YELLOW");
                    break;
-               case 4:
-                  ids[3].performClick();
+               case 3:
+                   b = findViewById(R.id.blue_imageButton);
+                  // b.performClick();
+                 // ids[3].performClick();
                   // buttonColor[3].performClick();
                    Log.i("Color: ", "BLUE");
                    break;
                default:
                    break;
            }
+
+
+           handler.post(new Runnable() {
+               @Override
+               public void run() {
+                   ids[number].performClick();
+               }
+           });
+
            onResume();
 
            /* for (int i = 0; i < num; i++) {
@@ -168,7 +220,7 @@ public class PlayActivity extends Activity {
                         Thread.sleep(10000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
-                    }
+
                 } else {
                     try {
                         simonTurn = true;
@@ -181,7 +233,7 @@ public class PlayActivity extends Activity {
             }*/
 
 
-            // return null;
+                   // return null;
            /*for (int i = 0; i < num; i++) {
                            if (num == 9) {
                                 Thread.interrupted();
@@ -207,11 +259,13 @@ public class PlayActivity extends Activity {
                                     }
                                 }
                             }*/
-        }
+       }
     }
+
 
 /*=======SOUND=========********************************===================================******************************************/
     //onResume
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -224,7 +278,7 @@ public class PlayActivity extends Activity {
         spBuilder.setMaxStreams(2);
         soundPool = spBuilder.build();
 
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+    soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
             @Override
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
                 if (status == 0) {//means it was a success
@@ -242,7 +296,7 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
-
+                //view.performClick();
             }
         });
         //red_button
@@ -250,6 +304,7 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
+                //view.performClick();
             }
         });
         //yellow_button
@@ -257,6 +312,7 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
+                //view.performClick();
             }
         });
         //blue_button
@@ -264,10 +320,10 @@ public class PlayActivity extends Activity {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
+               // view.performClick();
             }
         });
     }
-
     //onPause
     @Override
     protected void onPause() {
