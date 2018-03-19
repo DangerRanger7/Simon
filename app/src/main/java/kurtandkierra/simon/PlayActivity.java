@@ -173,29 +173,15 @@ public class PlayActivity extends Activity {
 
            switch (number) {
                case 0:
-                   b = findViewById(R.id.green_imageButton);
-                 //  ids[0].performClick();
-                   //b.performClick();
                    Log.i("Color: ", "GREEN");
                    break;
                case 1:
-                   b = findViewById(R.id.red_imageButton);
-                   //b.performClick();
-                   //ids[1].performClick();
                    Log.i("Color: ", "RED");
                    break;
                case 2:
-                   b = findViewById(R.id.yellow_imageButton);
-                  // b.performClick();
-                // ids[2].performClick();
-                  // buttonColor[2].performClick();
                    Log.i("Color: ", "YELLOW");
                    break;
                case 3:
-                   b = findViewById(R.id.blue_imageButton);
-                  // b.performClick();
-                 // ids[3].performClick();
-                  // buttonColor[3].performClick();
                    Log.i("Color: ", "BLUE");
                    break;
                default:
@@ -215,9 +201,9 @@ public class PlayActivity extends Activity {
                public void run() {
                    ids[number].setPressed(false);
                }
-           }, 100);
+           }, 500);
 
-           onResume();
+           //onResume();
 
            /* for (int i = 0; i < num; i++) {
                 if (simonTurn == true) {
