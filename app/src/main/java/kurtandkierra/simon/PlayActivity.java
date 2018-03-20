@@ -1,6 +1,7 @@
 package kurtandkierra.simon;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -34,7 +35,7 @@ public class PlayActivity extends Activity {
     //soundpool
     private SoundPool soundPool;
     private Set<Integer> soundsLoaded;
-    int seqNum = 8;
+    int seqNum;
     List<Integer> sequence = new ArrayList<Integer>();
     //int[] sequence = new int[seqNum];
     private Handler handler;
@@ -87,7 +88,10 @@ public class PlayActivity extends Activity {
             //handler
             handler = new Handler();
 
-
+            Intent intent = getIntent();
+            //versions
+        seqNum = getIntent().getIntExtra("seqNum", 8);
+       // int seqNum = intent.getIntExtra("seqNum");
     }
 
     //score
@@ -234,7 +238,7 @@ public class PlayActivity extends Activity {
                 }, 500);
 
                 simonTurn = false;
-                usersTurn();
+              //  usersTurn();
              /* handler.post(new Runnable() {
                   @Override
                   public void run() {
