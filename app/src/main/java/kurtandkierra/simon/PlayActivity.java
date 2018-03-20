@@ -19,6 +19,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
+import static kurtandkierra.simon.R.id.green_imageButton;
+
 /**
  * Created by Kierra on 2/25/2018.
  */
@@ -36,6 +38,7 @@ public class PlayActivity extends Activity {
     List<Integer> sequence = new ArrayList<Integer>();
     //int[] sequence = new int[seqNum];
     private Handler handler;
+    int score = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,32 +62,33 @@ public class PlayActivity extends Activity {
         soundsLoaded = new HashSet<Integer>();
 
              /*create ImageButton*/
-             ids[0] = findViewById(R.id.green_imageButton);
-            ids[1] = findViewById(R.id.red_imageButton);
-            ids[2] = findViewById(R.id.yellow_imageButton);
-            ids[3] = findViewById(R.id.blue_imageButton);
-                for (int i = 0; i < ids.length; i++){
-                   // ids[i].setOnClickListener(this);
-                   ids[i].setOnClickListener(new View.OnClickListener() {
-                       @Override
-                       public void onClick(View view) {
+        ids[0] = findViewById(green_imageButton);
+        ids[1] = findViewById(R.id.red_imageButton);
+        ids[2] = findViewById(R.id.yellow_imageButton);
+        ids[3] = findViewById(R.id.blue_imageButton);
+        for (int i = 0; i < ids.length; i++) {
+            // ids[i].setOnClickListener(this);
+            ids[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                       }
-                   });
                 }
-
-                //start button
-        findViewById(R.id.start_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startCounter();
-            }
-        });
-
-       //handler
-        handler = new Handler();
-
+            });
         }
+
+            //start button
+            findViewById(R.id.start_button).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startCounter();
+                }
+            });
+
+            //handler
+            handler = new Handler();
+
+
+    }
 
     //score
     private TextView highScore_tv;
@@ -131,8 +135,7 @@ public class PlayActivity extends Activity {
                     e.printStackTrace();
                 }
                 onProgressUpdate(num);
-                i++;
-            }
+
 
                 /*for (int  k = 0; k < sequence.size(); k++){
                     buttonPressed(ids[num]);
@@ -161,11 +164,10 @@ public class PlayActivity extends Activity {
                   }
               }*/
 
-
-            //repeat sequence
-               /* if (sequence.length > 1){
-                    for (int j = 0; j < sequence.length; j++){
-                       sequence[j] = sequence[j];
+                //repeat sequence
+                /*if (sequence.size() > 1) {
+                    for (int j = 0; j < sequence.size(); j++) {
+                      //  sequence.get(j) = sequence.get(j);
 
                         try {
                             Thread.sleep(1000);
@@ -175,12 +177,16 @@ public class PlayActivity extends Activity {
 
                         onProgressUpdate(num);
                     }
-                }*/
-            //sequence
+                }
+
+                i++;
+            }*/
+                //sequence
             /*    for (int j = 0; j < sequence.length; j++){
                         sequence[j].performClick();
                 }*/
-
+            i++;
+            }
 
             return null;
         }
@@ -188,78 +194,152 @@ public class PlayActivity extends Activity {
         @Override
         protected void onProgressUpdate(Integer... num) {
 
-            final int number = num[0];
-            ImageButton b;
-
-            switch (number) {
-                case 0:
-                    Log.i("Color: ", "GREEN");
-                    break;
-                case 1:
-                    Log.i("Color: ", "RED");
-                    break;
-                case 2:
-                    Log.i("Color: ", "YELLOW");
-                    break;
-                case 3:
-                    Log.i("Color: ", "BLUE");
-                    break;
-                default:
-                    break;
-            }
-
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    ids[number].performClick();
-                    ids[number].setPressed(true);
+                final int number = num[0];
+                ImageButton b;
+                int v;
+                switch (number) {
+                    case 0:
+                        v = green_imageButton;
+                        Log.i("Color: ", "GREEN");
+                        break;
+                    case 1:
+                        v = R.id.red_imageButton;
+                        Log.i("Color: ", "RED");
+                        break;
+                    case 2:
+                        v = R.id.yellow_imageButton;
+                        Log.i("Color: ", "YELLOW");
+                        break;
+                    case 3:
+                        v = R.id.blue_imageButton;
+                        Log.i("Color: ", "BLUE");
+                        break;
+                    default:
+                        break;
                 }
-            });
 
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    ids[number].setPressed(false);
-                }
-            }, 500);
-
-            simonTurn = false;
-
-            // for (int i = 0; i < seqNum; i++) {
-            while (simonTurn == false) {
-                runOnUiThread(new Runnable() {
+                handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(getApplicationContext(), "Here!!!",
-                                Toast.LENGTH_LONG).show();
+                        ids[number].performClick();
+                        ids[number].setPressed(true);
+                    }
+                });
 
-                        try {
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ids[number].setPressed(false);
+                    }
+                }, 500);
+
+                simonTurn = false;
+                usersTurn();
+             /* handler.post(new Runnable() {
+                  @Override
+                  public void run() {
+                      // List<Integer> sequence = new ArrayList<Integer>();
+// List<Integer> ids = new ArrayList<Integer>();
+                      while (simonTurn == false) {
+                        Thread newThread = new Thread();
+                          try {
+                              newThread.wait();
+                          } catch (InterruptedException e) {
+                              e.printStackTrace();
+                          }
+                      }
+                   }});*/
+
+                    simonTurn = true;
+
+            /*handler.post(new Runnable() {
+                @Override
+                public void run() {
+
+                    try {
+                        Thread.sleep(5000);
+                        simonTurn = false;
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });*/
+
+
+            // for (int i = 0; i < seqNum; i++) {
+               /* runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                       try {
+
                             Thread.sleep(10000);
+                            //usersTurn();
+
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                      //  for (int )
+
                     }
-                });
-                simonTurn = true;
-            }
+                });*/
+              
+
 
             //user input
 
-
         }
     }
+    /*public void onClick(View v){
 
-//user turn
-  public void usersTurn(){
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getApplicationContext(), "Here!!!",
+        for (int i = 0; i < sequence.size(); i++){
+
+            if (v.getId() == sequence.get(i)){
+                score += 1;
+                Toast.makeText(getApplicationContext(), "Score: " + score,
+                        Toast.LENGTH_LONG).show();
+
+
+            }else{
+                score = score;
+                Toast.makeText(getApplicationContext(), "Score: " + score,
                         Toast.LENGTH_LONG).show();
             }
-        }, 10000);
+        }
+
+    }*/
+    public void onClick(View view){
+        for (int i = 0; i < sequence.size(); i++){
+
+            if (view.getId() == sequence.get(i)){
+                score += 1;
+                Toast.makeText(getApplicationContext(), "Score: " + score,
+                        Toast.LENGTH_LONG).show();
+
+
+            }else{
+                Toast.makeText(getApplicationContext(), "Score: " + score,
+                        Toast.LENGTH_LONG).show();
+            }
+        }
+        simonTurn = true;
+    }
+
+
+    //user turn
+  public void usersTurn(){
+      Thread newThread = new Thread();
+      newThread.start();
+
+        while (simonTurn == false) {
+            synchronized (newThread) {
+                try {
+                    newThread.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            newThread.isInterrupted();
+            //simonTurn = true;
+        }
 
   }
 
@@ -291,7 +371,7 @@ public class PlayActivity extends Activity {
         //load sounds
         final int gameBeepId = soundPool.load(this, R.raw.gamebeep, 1);
         //green_button
-        findViewById(R.id.green_imageButton).setOnClickListener(new View.OnClickListener() {
+        findViewById(green_imageButton).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 playSound(gameBeepId);
